@@ -6,21 +6,50 @@
 <title>Quiet — a private journal</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root{
-    --bg:#1C1A17;
-    --surface:#252320;
-    --surface-2:#2D2A26;
-    --accent:#7A9E7E;
-    --accent-dim:#5e7a62;
-    --danger:#C47A7A;
-    --danger-dim:#9a5f5f;
-    --text:#E8E4DC;
-    --text-2:#8C8880;
-    --line:#332F2A;
+  :root,[data-theme="warm-dark"]{
+    --bg:#1C1A17; --surface:#252320; --surface-2:#2D2A26;
+    --accent:#7A9E7E; --accent-dim:#5e7a62;
+    --danger:#C47A7A; --danger-dim:#9a5f5f;
+    --text:#E8E4DC; --text-2:#8C8880; --line:#332F2A;
     --radius:8px;
     --shadow:0 1px 3px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.22);
     --serif: Georgia, 'Palatino Linotype', 'Book Antiqua', serif;
     --ui: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+  [data-theme="light"]{
+    --bg:#F5F2ED; --surface:#FFFFFF; --surface-2:#EDE9E3;
+    --accent:#5A8060; --accent-dim:#406050;
+    --danger:#B05050; --danger-dim:#8a3d3d;
+    --text:#2C2A26; --text-2:#7A766E; --line:#D9D4CC;
+    --shadow:0 1px 3px rgba(0,0,0,.08), 0 4px 14px rgba(0,0,0,.07);
+  }
+  [data-theme="cool-dark"]{
+    --bg:#141820; --surface:#1C2130; --surface-2:#242C3E;
+    --accent:#7AA0C4; --accent-dim:#5a7fa8;
+    --danger:#C47A9E; --danger-dim:#9a5f7e;
+    --text:#DDE3EE; --text-2:#7A8898; --line:#2A3248;
+    --shadow:0 1px 3px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.3);
+  }
+  [data-theme="forest"]{
+    --bg:#121A14; --surface:#192210; --surface-2:#1F2B18;
+    --accent:#90C87A; --accent-dim:#6a9a56;
+    --danger:#E09060; --danger-dim:#b06a40;
+    --text:#D8EDCC; --text-2:#7A9868; --line:#243018;
+    --shadow:0 1px 3px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.3);
+  }
+  [data-theme="sakura"]{
+    --bg:#FDF0F4; --surface:#FFFFFF; --surface-2:#FAE4EC;
+    --accent:#D4689A; --accent-dim:#b04d7e;
+    --danger:#C04848; --danger-dim:#9a3333;
+    --text:#3A1F2A; --text-2:#9A6880; --line:#F0C8D8;
+    --shadow:0 1px 4px rgba(180,100,130,.1), 0 4px 16px rgba(180,100,130,.08);
+  }
+  [data-theme="tiffany"]{
+    --bg:#EDF8F9; --surface:#FFFFFF; --surface-2:#D4EFF2;
+    --accent:#2AABB0; --accent-dim:#1d878c;
+    --danger:#C04848; --danger-dim:#9a3333;
+    --text:#1A3335; --text-2:#5A8A8E; --line:#B8E0E4;
+    --shadow:0 1px 4px rgba(40,160,170,.1), 0 4px 16px rgba(40,160,170,.08);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -33,6 +62,8 @@
     -webkit-font-smoothing:antialiased;
   }
   ::selection{background:rgba(122,158,126,.3)}
+  [data-theme="sakura"] ::selection{background:rgba(212,104,154,.25)}
+  [data-theme="tiffany"] ::selection{background:rgba(42,171,176,.25)}
   a{color:var(--accent)}
   button{font-family:inherit}
 
@@ -99,6 +130,10 @@
     transition:border-color .12s;
   }
   input:focus,select:focus,textarea:focus{border-color:var(--accent-dim)}
+  /* light themes: make sure inputs/editors match light bg */
+  [data-theme="sakura"] input,[data-theme="sakura"] select,[data-theme="sakura"] textarea,[data-theme="sakura"] .editor{background:var(--surface-2);color:var(--text);border-color:var(--line)}
+  [data-theme="tiffany"] input,[data-theme="tiffany"] select,[data-theme="tiffany"] textarea,[data-theme="tiffany"] .editor{background:var(--surface-2);color:var(--text);border-color:var(--line)}
+  [data-theme="light"] input,[data-theme="light"] select,[data-theme="light"] textarea,[data-theme="light"] .editor{background:var(--surface-2);color:var(--text);border-color:var(--line)}
   textarea{resize:vertical;min-height:64px}
   .field{margin-bottom:13px}
   .inline-fields{display:flex;gap:12px;flex-wrap:wrap}
@@ -223,6 +258,51 @@
   .tab{padding:7px 14px;border-radius:6px;cursor:pointer;font-size:13px;color:var(--text-2);background:var(--surface)}
   .tab.active{background:var(--surface-2);color:var(--text)}
 
+
+  /* drag-drop todos */
+  .todo-item[draggable]{cursor:grab}
+  .todo-item[draggable]:active{cursor:grabbing}
+  .todo-item.drag-over{border-top:2px solid var(--accent);margin-top:-2px}
+  .todo-item.dragging{opacity:.4}
+  .drag-handle{color:var(--text-2);cursor:grab;font-size:14px;padding:0 4px;flex:0 0 auto;user-select:none}
+  .drag-handle:hover{color:var(--text)}
+
+  /* mood log calendar */
+  .mlog-toggle{display:flex;gap:6px;margin-bottom:14px}
+  .mlog-toggle button{padding:5px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--text-2);cursor:pointer;font-size:13px}
+  .mlog-toggle button.active{background:var(--surface-2);color:var(--text);border-color:var(--text-2)}
+  .mlog-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .mlog-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .mlog-head{font-size:10px;color:var(--text-2);text-align:center;padding:3px 0;letter-spacing:.4px}
+  .mlog-cell{aspect-ratio:1;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;background:var(--surface-2);color:var(--text-2);position:relative;cursor:default;transition:transform .08s;}
+  .mlog-cell:hover{transform:scale(1.06)}
+  .mlog-cell.empty{background:transparent}
+  .mlog-cell.today-cell{outline:1.5px solid var(--text-2)}
+  .mlog-cell .mlog-day{font-size:9px;color:var(--text-2);position:absolute;top:4px;left:0;right:0;text-align:center}
+  .mlog-cell .mlog-score{font-family:var(--serif);font-size:14px;font-weight:500;margin-top:6px}
+  .mlog-cell.s-high{background:rgba(122,158,126,.35);color:var(--text)}
+  .mlog-cell.s-mid{background:rgba(185,163,106,.25);color:var(--text)}
+  .mlog-cell.s-low{background:rgba(196,122,122,.3);color:var(--text)}
+  [data-theme="light"] .mlog-cell.s-high{background:rgba(90,128,96,.2)}
+  [data-theme="light"] .mlog-cell.s-mid{background:rgba(185,163,106,.2)}
+  [data-theme="light"] .mlog-cell.s-low{background:rgba(176,80,80,.15)}
+  [data-theme="sakura"] .mlog-cell.s-high{background:rgba(212,104,154,.18);color:var(--text)}
+  [data-theme="sakura"] .mlog-cell.s-mid{background:rgba(185,140,163,.15);color:var(--text)}
+  [data-theme="sakura"] .mlog-cell.s-low{background:rgba(192,72,72,.12);color:var(--text)}
+  [data-theme="tiffany"] .mlog-cell.s-high{background:rgba(42,171,176,.2);color:var(--text)}
+  [data-theme="tiffany"] .mlog-cell.s-mid{background:rgba(90,138,142,.15);color:var(--text)}
+  [data-theme="tiffany"] .mlog-cell.s-low{background:rgba(192,72,72,.12);color:var(--text)}
+  .mlog-legend{display:flex;gap:12px;margin-top:10px;font-size:11.5px;color:var(--text-2);flex-wrap:wrap}
+  .mlog-legend span{display:flex;align-items:center;gap:5px}
+  .mlog-legend .sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .mlog-cell.mlog-selected{outline:2px solid var(--accent);outline-offset:2px;transform:scale(1.08)}
+  .theme-swatches{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .theme-swatch{width:44px;height:44px;border-radius:8px;cursor:pointer;border:2px solid transparent;display:flex;align-items:center;justify-content:center;font-size:10px;transition:border-color .12s,transform .1s;flex-direction:column;gap:3px;}
+  .theme-swatch:hover{transform:scale(1.08)}
+  .theme-swatch.active{border-color:var(--accent)}
+  .theme-swatch .sw-a{width:14px;height:14px;border-radius:50%}
+  .theme-swatch .sw-b{width:22px;height:6px;border-radius:3px}
+
   /* dashboard stat */
   .stat{background:var(--surface);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
   .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-2)}
@@ -281,6 +361,7 @@
     <div class="nav-item" data-view="relationships"><span class="ico">❀</span>People</div>
     <div class="nav-item" data-view="goals"><span class="ico">⤴</span>Goals</div>
     <div class="nav-item" data-view="todos"><span class="ico">✓</span>To-Do</div>
+    <div class="nav-item" data-view="moodlog"><span class="ico">◉</span>Mood Log</div>
     <div class="nav-spacer"></div>
     <div class="nav-item subtle" id="openSettings"><span class="ico">⚙</span>Settings</div>
   </nav>
@@ -294,6 +375,7 @@
     <div class="view" id="view-relationships"></div>
     <div class="view" id="view-goals"></div>
     <div class="view" id="view-todos"></div>
+    <div class="view" id="view-moodlog"></div>
   </main>
 </div>
 
@@ -321,11 +403,28 @@
       <span id="connResult" class="small muted"></span>
     </div>
 
+
+    <hr style="border:none;border-top:1px solid var(--line);margin:20px 0">
+    <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-2);margin:0 0 8px">Appearance</h3>
+    <label class="fld">Theme</label>
+    <div class="theme-swatches" id="themeSwatches">
+      <div class="theme-swatch" data-theme="warm-dark" title="Warm Dark"><div class="sw-a" style="background:#7A9E7E"></div><div class="sw-b" style="background:#252320"></div></div>
+      <div class="theme-swatch" data-theme="light" title="Light"><div class="sw-a" style="background:#5A8060"></div><div class="sw-b" style="background:#FFFFFF"></div></div>
+      <div class="theme-swatch" data-theme="cool-dark" title="Cool Dark"><div class="sw-a" style="background:#7AA0C4"></div><div class="sw-b" style="background:#1C2130"></div></div>
+      <div class="theme-swatch" data-theme="forest" title="Forest"><div class="sw-a" style="background:#90C87A"></div><div class="sw-b" style="background:#192210"></div></div>
+      <div class="theme-swatch" data-theme="sakura" title="Sakura"><div class="sw-a" style="background:#D4689A"></div><div class="sw-b" style="background:#FDF0F4"></div></div>
+      <div class="theme-swatch" data-theme="tiffany" title="Tiffany Blue"><div class="sw-a" style="background:#2AABB0"></div><div class="sw-b" style="background:#EDF8F9"></div></div>
+    </div>
+    <div id="themeLabel" class="muted small" style="margin-top:6px"></div>
     <hr style="border:none;border-top:1px solid var(--line);margin:20px 0">
     <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-2);margin:0 0 10px">Your data</h3>
+    <div style="margin-bottom:10px;font-size:13px">
+      Server sync: <span id="syncStatus" style="color:var(--text-2)">checking…</span>
+    </div>
     <div class="btn-row">
-      <button class="btn ghost sm" id="exportBtn">Export all data</button>
-      <button class="btn ghost sm" id="importBtn">Import data</button>
+      <button class="btn ghost sm" id="exportBtn">Export JSON</button>
+      <button class="btn ghost sm" id="importBtn">Import JSON</button>
+      <button class="btn ghost sm" id="forceSaveBtn">Save now</button>
       <input type="file" id="importFile" accept="application/json" style="display:none">
     </div>
     <p class="muted small" style="margin-top:10px" id="storageNote"></p>
@@ -349,15 +448,66 @@ const DEFAULTS = {
   journal_entries: [], food_logs: [], exercise_logs: [], cycle_logs: [],
   contacts: [], interactions: [], goals: [], todos: [],
   lms_base_url: "http://localhost:1234/v1", lms_model: "", lms_api_key: "",
-  daily_insight: null
+  daily_insight: null, insight_history: [], theme: "warm-dark", todo_order: []
 };
+/* ── server sync layer ──────────────────────────────────────────────────────
+   When served via server.py, all data lives in quiet-data.json on disk.
+   store.set() writes to localStorage immediately (fast/sync) then queues
+   a debounced save to the server. On boot, server data is loaded first.
+   When opened as a plain file (no server), works purely from localStorage.
+   ───────────────────────────────────────────────────────────────────────── */
+const SERVER_URL = 'http://localhost:5000';
+let _serverAvailable = false;
+let _saveTimer = null;
+
 const store = {
   get(k){
     try{ const r = localStorage.getItem(k); return r===null ? clone(DEFAULTS[k]) : JSON.parse(r); }
     catch(e){ return clone(DEFAULTS[k]); }
   },
-  set(k,v){ localStorage.setItem(k, JSON.stringify(v)); },
+  set(k,v){
+    localStorage.setItem(k, JSON.stringify(v));
+    if(_serverAvailable) _queueSave();
+  },
 };
+
+function _queueSave(){
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(_saveToServer, 800);
+}
+
+async function _saveToServer(){
+  try{
+    const out = {}; DATA_KEYS.forEach(k => out[k] = store.get(k));
+    out._saved = new Date().toISOString();
+    await fetch(SERVER_URL + '/data', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(out)
+    });
+    _updateSyncStatus('saved');
+  } catch(e){ _updateSyncStatus('error'); }
+}
+
+async function _loadFromServer(){
+  try{
+    const res = await fetch(SERVER_URL + '/data', {signal: AbortSignal.timeout(2000)});
+    if(!res.ok) return false;
+    const data = await res.json();
+    if(data && typeof data === 'object'){
+      DATA_KEYS.forEach(k=>{ if(k in data) localStorage.setItem(k, JSON.stringify(data[k])); });
+    }
+    return true;
+  } catch(e){ return false; }
+}
+
+function _updateSyncStatus(state){
+  const el = document.getElementById('syncStatus'); if(!el) return;
+  if(state==='saved')    { el.textContent='✓ saved to file'; el.style.color='var(--accent)'; }
+  else if(state==='live'){ el.textContent='● live'; el.style.color='var(--accent)'; }
+  else if(state==='error'){ el.textContent='⚠ save failed'; el.style.color='var(--danger)'; }
+  else                   { el.textContent='● local only'; el.style.color='var(--text-2)'; }
+}
 function clone(x){ return x===undefined?undefined:JSON.parse(JSON.stringify(x)); }
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
 
@@ -528,6 +678,8 @@ function openSettings(){
   document.getElementById('setModel').value = store.get('lms_model');
   document.getElementById('setApiKey').value = store.get('lms_api_key');
   document.getElementById('connResult').textContent='';
+  applyTheme(store.get('theme'));
+  _updateSyncStatus(_serverAvailable ? 'live' : 'local');
   updateStorageNote();
   sm.classList.add('open');
 }
@@ -556,7 +708,7 @@ document.getElementById('testConn').addEventListener('click',async ()=>{
   }
 });
 
-const DATA_KEYS = ['journal_entries','food_logs','exercise_logs','cycle_logs','contacts','interactions','goals','todos','lms_base_url','lms_model','lms_api_key','daily_insight'];
+const DATA_KEYS = ['journal_entries','food_logs','exercise_logs','cycle_logs','contacts','interactions','goals','todos','lms_base_url','lms_model','lms_api_key','daily_insight','insight_history','theme','todo_order'];
 document.getElementById('exportBtn').addEventListener('click',()=>{
   const out={}; DATA_KEYS.forEach(k=>out[k]=store.get(k));
   out._exported = new Date().toISOString();
@@ -564,7 +716,7 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob); a.download=`quiet-backup-${todayStr()}.json`;
   a.click(); URL.revokeObjectURL(a.href);
-  toast('Exported');
+  toast('Backup downloaded');
 });
 document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
 document.getElementById('importFile').addEventListener('change',e=>{
@@ -573,19 +725,38 @@ document.getElementById('importFile').addEventListener('change',e=>{
   reader.onload=()=>{
     try{
       const data=JSON.parse(reader.result);
-      if(!confirm('Import will replace all current data in this browser. Continue?')) return;
+      if(!confirm('Import will replace all current data. Continue?')) return;
       DATA_KEYS.forEach(k=>{ if(k in data) store.set(k,data[k]); });
+      if(_serverAvailable) _saveToServer();
       toast('Data imported'); closeSettings(); rerenderAll();
     }catch(err){ alert('That file could not be read as a valid Quiet backup.'); }
   };
   reader.readAsText(file);
   e.target.value='';
 });
+document.getElementById('forceSaveBtn').addEventListener('click', async ()=>{
+  if(!_serverAvailable){ toast('Server not running — start server.py first'); return; }
+  await _saveToServer(); toast('Saved to quiet-data.json');
+});
 function updateStorageNote(){
   let bytes=0; DATA_KEYS.forEach(k=>{ const v=localStorage.getItem(k); if(v) bytes+=v.length; });
-  document.getElementById('storageNote').textContent = `Using ~${(bytes/1024).toFixed(1)} KB of local storage.`;
+  const serverNote = _serverAvailable ? ' · auto-saving to quiet-data.json' : ' · server not running (local only)';
+  document.getElementById('storageNote').textContent = `Using ~${(bytes/1024).toFixed(1)} KB of local storage${serverNote}.`;
 }
 
+
+/* ---------- theme ---------- */
+const THEME_NAMES = {"warm-dark":"Warm Dark","light":"Light","cool-dark":"Cool Dark","forest":"Forest","sakura":"Sakura Pink","tiffany":"Tiffany Blue"};
+function applyTheme(t){
+  document.documentElement.setAttribute("data-theme", t||"warm-dark");
+  store.set("theme", t||"warm-dark");
+  document.querySelectorAll(".theme-swatch").forEach(s=>s.classList.toggle("active", s.dataset.theme===(t||"warm-dark")));
+  const lbl=document.getElementById("themeLabel"); if(lbl) lbl.textContent=THEME_NAMES[t||"warm-dark"]||"";
+}
+document.addEventListener("click", e=>{
+  const s=e.target.closest(".theme-swatch"); if(!s) return;
+  applyTheme(s.dataset.theme);
+});
 /* re-render whichever view is active (and dashboard caches) */
 function rerenderAll(){
   const active = document.querySelector('.nav-item.active');
@@ -661,8 +832,11 @@ function journalCard(e){
          <div class="ai-reflection">${esc(e.reflection||'')}</div></div>`
     : `<div class="ai-box" id="jai-${e.id}"><div class="ai-label"><span class="spinner"></span> analyzing…</div></div>`;
   return `<div class="list-item">
-    <div class="entry-meta"><span>${prettyDate(e.date)}</span>
-      <span class="del" data-del="${e.id}" style="cursor:pointer;color:var(--text-2)" title="Delete">✕</span></div>
+    <div class="entry-meta">
+      <span>${prettyDate(e.date)}</span>
+      <span data-jedit="${e.id}" style="cursor:pointer;color:var(--text-2);font-size:12px;margin-left:auto;padding-right:10px" title="Edit entry">✎ edit</span>
+      <span class="del" data-del="${e.id}" style="cursor:pointer;color:var(--text-2)" title="Delete">✕</span>
+    </div>
     <div class="entry-body">${e.content}</div>
     ${analysis}
   </div>`;
@@ -670,7 +844,8 @@ function journalCard(e){
 function sentimentClass(s){ return (s==='Thriving'||s==='Stable')?'accent':(s==='Depressed'?'danger':''); }
 
 document.getElementById('view-journal').addEventListener('click',e=>{
-  const d=e.target.closest('[data-del]'); if(d){ if(confirm('Delete this entry?')){ removeById('journal_entries',d.dataset.del); VIEWS.journal(); } }
+  const d=e.target.closest('[data-del]'); if(d){ if(confirm('Delete this entry?')){ removeById('journal_entries',d.dataset.del); VIEWS.journal(); } return; }
+  const ed=e.target.closest('[data-jedit]'); if(ed){ openJournalEdit(ed.dataset.jedit); }
 });
 
 function saveJournal(){
@@ -681,6 +856,43 @@ function saveJournal(){
   const arr=store.get('journal_entries'); arr.push(entry); store.set('journal_entries',arr);
   ed.innerHTML=''; toast('Entry saved');
   VIEWS.journal();
+}
+
+function openJournalEdit(id){
+  const arr=store.get('journal_entries');
+  const e=arr.find(x=>x.id===id); if(!e) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Edit entry</h2>
+    <p class="muted small" style="margin-top:0">${prettyDate(e.date)}</p>
+    <div class="field" style="max-width:200px"><label class="fld">Date</label><input type="date" id="jeDate" value="${e.date}"></div>
+    <div class="editor-toolbar" style="margin-bottom:8px">
+      <button data-cmd="bold"><b>B</b></button>
+      <button data-cmd="italic"><i>I</i></button>
+      <button data-cmd="insertUnorderedList">•</button>
+    </div>
+    <div class="editor" id="jeEditor" contenteditable="true" style="min-height:180px">${e.content}</div>
+    <div class="muted small" style="margin-top:8px">Saving will clear the AI analysis and re-queue it.</div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="jeSave">Save changes</button>
+      <button class="btn ghost" id="jeCancel">Cancel</button>
+    </div>
+  `);
+  // toolbar
+  document.querySelectorAll('.editor-toolbar button[data-cmd]').forEach(b=>{
+    b.addEventListener('mousedown',ev=>{ ev.preventDefault(); document.execCommand(b.dataset.cmd,false,null); document.getElementById('jeEditor').focus(); });
+  });
+  document.getElementById('jeCancel').addEventListener('click', closeModal);
+  document.getElementById('jeSave').addEventListener('click',()=>{
+    const newContent=document.getElementById('jeEditor').innerHTML.trim();
+    const newDate=document.getElementById('jeDate').value||e.date;
+    if(!newContent||stripHtml(newContent)===''){ toast('Entry cannot be empty'); return; }
+    updateById('journal_entries',id,x=>{
+      x.content=newContent; x.date=newDate;
+      // clear analysis so it re-runs on next view
+      x.mood_score=null; x.sentiment=null; x.reflection=null;
+    });
+    closeModal(); toast('Entry updated'); VIEWS.journal();
+  });
 }
 
 async function analyzeJournal(id){
@@ -1312,25 +1524,33 @@ async function goalInsight(){
    7. TO-DO
    ========================================================================= */
 let todoTab='today';
+/* ---------- todo drag-drop order helpers ---------- */
+function getOrderedTodos(list){
+  // apply manual order from todo_order store; unordered items go to end
+  const order = store.get('todo_order') || [];
+  const orderMap = {}; order.forEach((id,i)=>orderMap[id]=i);
+  return list.slice().sort((a,b)=>{
+    const ai = orderMap[a.id]??99999, bi = orderMap[b.id]??99999;
+    return ai - bi;
+  });
+}
+function saveTodoOrder(ids){ store.set('todo_order', ids); }
+
 VIEWS.todos=function(){
   const todos=store.get('todos');
   const goals=store.get('goals').filter(g=>g.status==='active');
   const today=todayStr();
   let list;
   if(todoTab==='today') list=todos.filter(t=>!t.completed && t.due_date && t.due_date<=today);
-  else if(todoTab==='completed') list=todos.filter(t=>t.completed);
+  else if(todoTab==='completed') list=todos.filter(t=>t.completed).slice().sort((a,b)=>(b.completed_date||'').localeCompare(a.completed_date||''));
   else list=todos.filter(t=>!t.completed);
-  // ordering: incomplete first by priority then date; completed at bottom
-  const prioRank={high:0,medium:1,low:2,'':3,null:3,undefined:3};
-  list=list.slice().sort((a,b)=>{
-    if(a.completed!==b.completed) return a.completed?1:-1;
-    const pr=(prioRank[a.priority]??3)-(prioRank[b.priority]??3); if(pr) return pr;
-    return (a.due_date||'9999').localeCompare(b.due_date||'9999');
-  });
+
+  // For 'all' and 'today', use manual drag order; completed uses chrono
+  if(todoTab!=='completed') list = getOrderedTodos(list);
 
   render('todos',`
     <h1 class="page">To-Do</h1>
-    <p class="page-sub">Fast in, fast out.</p>
+    <p class="page-sub">Fast in, fast out. Drag ⠿ to reorder.</p>
 
     <div class="card">
       <div class="inline-fields" style="align-items:flex-end">
@@ -1348,7 +1568,7 @@ VIEWS.todos=function(){
     </div>
 
     <div class="card">
-      <div id="tList">${ list.length? list.map(todoRow).join('') : '<div class="empty">Nothing here.</div>' }</div>
+      <div id="tList">${ list.length? list.map((t,i)=>todoRow(t,i)).join('') : '<div class="empty">Nothing here.</div>' }</div>
     </div>
   `);
   const inp=$('#tInput');
@@ -1358,20 +1578,28 @@ VIEWS.todos=function(){
   const cd=$('#clearDone'); if(cd) cd.addEventListener('click',()=>{ store.set('todos',store.get('todos').filter(t=>!t.completed)); toast('Cleared completed'); VIEWS.todos(); });
   $$('#view-todos .cbx').forEach(c=>c.addEventListener('click',()=>toggleTodo(c.dataset.t)));
   $$('#view-todos [data-delt]').forEach(b=>b.addEventListener('click',()=>{ removeById('todos',b.dataset.delt); VIEWS.todos(); }));
+  $$('#view-todos [data-tedit]').forEach(b=>b.addEventListener('click',()=>openTodoEdit(b.dataset.tedit)));
+  // attach drag-drop if not completed view
+  if(todoTab!=='completed') initTodoDrag();
 };
-function todoRow(t){
+function todoRow(t, i){
   const goal=t.goal_id? store.get('goals').find(g=>g.id===t.goal_id):null;
   const overdue=!t.completed && t.due_date && t.due_date<todayStr();
-  return `<div class="todo-item ${t.completed?'done':''}">
+  const draggable = todoTab!=='completed';
+  const num = (i != null && !t.completed) ? `<span style="font-family:var(--serif);font-size:13px;color:var(--text-2);flex:0 0 22px;text-align:right;padding-right:4px">${i+1}.</span>` : '';
+  return `<div class="todo-item ${t.completed?'done':''}" data-id="${t.id}" ${draggable?'draggable="true"':''}>
+    ${draggable?'<span class="drag-handle" title="Drag to reorder">⠿</span>':''}
+    ${num}
     <div class="cbx ${t.completed?'done':''}" data-t="${t.id}">✓</div>
     <div class="ttl">
       <div>${esc(t.title)}</div>
       <div class="entry-meta" style="margin:2px 0 0">
         ${t.priority?`<span class="pill ${t.priority==='high'?'danger':t.priority==='medium'?'accent':''}">${cap(t.priority)}</span>`:''}
-        ${t.due_date?`<span class="${overdue?'':''}" style="color:${overdue?'var(--danger)':'var(--text-2)'}">${prettyShort(t.due_date)}${overdue?' · overdue':''}</span>`:''}
+        ${t.due_date?`<span style="color:${overdue?'var(--danger)':'var(--text-2)'}">${prettyShort(t.due_date)}${overdue?' · overdue':''}</span>`:''}
         ${goal?`<span class="muted">↳ ${esc(goal.title)}</span>`:''}
       </div>
     </div>
+    <span data-tedit="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:13px;padding:0 6px" title="Edit task">✎</span>
     <span data-delt="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:13px" title="Delete">✕</span>
   </div>`;
 }
@@ -1384,6 +1612,86 @@ function addTodo(){
 function toggleTodo(id){
   updateById('todos',id,t=>{ t.completed=!t.completed; t.completed_date=t.completed?todayStr():null; });
   VIEWS.todos();
+}
+function openTodoEdit(id){
+  const t=store.get('todos').find(x=>x.id===id); if(!t) return;
+  const goals=store.get('goals').filter(g=>g.status==='active');
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Edit task</h2>
+    <div class="field"><label class="fld">Title</label><input type="text" id="teTitle" value="${esc(t.title)}"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Due date</label><input type="date" id="teDue" value="${t.due_date||''}"></div>
+      <div class="field"><label class="fld">Priority</label>
+        <select id="tePrio">
+          <option value="" ${!t.priority?'selected':''}>—</option>
+          <option value="high" ${t.priority==='high'?'selected':''}>High</option>
+          <option value="medium" ${t.priority==='medium'?'selected':''}>Medium</option>
+          <option value="low" ${t.priority==='low'?'selected':''}>Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label class="fld">Linked goal</label>
+      <select id="teGoal">
+        <option value="" ${!t.goal_id?'selected':''}>— none —</option>
+        ${goals.map(g=>`<option value="${g.id}" ${t.goal_id===g.id?'selected':''}>${esc(g.title)}</option>`).join('')}
+      </select>
+    </div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="teSave">Save changes</button>
+      <button class="btn ghost" id="teCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('teCancel').addEventListener('click', closeModal);
+  document.getElementById('teSave').addEventListener('click',()=>{
+    const title=document.getElementById('teTitle').value.trim();
+    if(!title){ toast('Title cannot be empty'); return; }
+    updateById('todos',id,x=>{
+      x.title=title;
+      x.due_date=document.getElementById('teDue').value||null;
+      x.priority=document.getElementById('tePrio').value||null;
+      x.goal_id=document.getElementById('teGoal').value||null;
+    });
+    closeModal(); toast('Task updated'); VIEWS.todos();
+  });
+}
+
+function initTodoDrag(){
+  let dragId=null;
+  const list=$('#tList');
+  if(!list) return;
+  list.addEventListener('dragstart',e=>{
+    const item=e.target.closest('.todo-item[draggable]'); if(!item) return;
+    dragId=item.dataset.id; item.classList.add('dragging');
+    e.dataTransfer.effectAllowed='move';
+  });
+  list.addEventListener('dragend',e=>{
+    dragId=null;
+    $$('.todo-item',list).forEach(el=>el.classList.remove('dragging','drag-over'));
+  });
+  list.addEventListener('dragover',e=>{
+    e.preventDefault(); e.dataTransfer.dropEffect='move';
+    const item=e.target.closest('.todo-item[draggable]'); if(!item||item.dataset.id===dragId) return;
+    $$('.todo-item',list).forEach(el=>el.classList.remove('drag-over'));
+    item.classList.add('drag-over');
+  });
+  list.addEventListener('dragleave',e=>{
+    const item=e.target.closest('.todo-item'); if(item) item.classList.remove('drag-over');
+  });
+  list.addEventListener('drop',e=>{
+    e.preventDefault();
+    const target=e.target.closest('.todo-item[draggable]');
+    if(!target||!dragId||target.dataset.id===dragId) return;
+    const items=$$('.todo-item[draggable]',list);
+    const ids=items.map(el=>el.dataset.id);
+    const fromIdx=ids.indexOf(dragId), toIdx=ids.indexOf(target.dataset.id);
+    if(fromIdx<0||toIdx<0) return;
+    ids.splice(fromIdx,1); ids.splice(toIdx,0,dragId);
+    saveTodoOrder(ids);
+    // Move DOM node for instant feedback, then re-render
+    if(fromIdx<toIdx) target.after(list.querySelector(`[data-id="${dragId}"]`));
+    else target.before(list.querySelector(`[data-id="${dragId}"]`));
+    $$('.todo-item',list).forEach(el=>el.classList.remove('drag-over','dragging'));
+  });
 }
 
 /* =========================================================================
@@ -1464,6 +1772,14 @@ async function genDailyInsight(manual){
     const r=await AI.json(prompt);
     const insight=String(r.insight||'').slice(0,400);
     store.set('daily_insight',{date:today,insight});
+    // persist to history (upsert by date)
+    const hist=store.get('insight_history');
+    const existing=hist.findIndex(x=>x.date===today);
+    const todayMoodScore=avgScore(store.get('journal_entries').filter(e=>e.date===today&&e.mood_score!=null).map(e=>e.mood_score));
+    const todayFoodScore=avgScore(store.get('food_logs').filter(l=>l.date===today&&l.health_score!=null).map(l=>l.health_score));
+    const entry={date:today,insight,mood_score:todayMoodScore,food_score:todayFoodScore};
+    if(existing>=0) hist[existing]=entry; else hist.push(entry);
+    store.set('insight_history',hist);
     $('#diBtn').textContent='Refresh';
     return `<div class="ai-reflection">${esc(insight)}</div>`;
   });
@@ -1495,12 +1811,214 @@ function openModal(html){
 function closeModal(){ if(genericModal) genericModal.classList.remove('open'); }
 
 /* =========================================================================
+   9. MOOD LOG — calendar view of daily reflections
+   ========================================================================= */
+let mlogView='month'; // 'month' | 'week'
+let mlogDate = new Date();
+
+VIEWS.moodlog=function(){
+  render('moodlog',`
+    <h1 class="page">Mood Log</h1>
+    <p class="page-sub">Your daily scores at a glance, color-coded and browsable.</p>
+    <div class="card" id="mlogCard">
+      <div class="mlog-toggle">
+        <button class="${mlogView==='month'?'active':''}" id="mlogMonthBtn">Month</button>
+        <button class="${mlogView==='week'?'active':''}" id="mlogWeekBtn">Week</button>
+      </div>
+      <div id="mlogInner"></div>
+    </div>
+    <div class="card" id="mlogFeed">
+      <h2 style="font-family:var(--serif);font-weight:500;font-size:18px;margin:0 0 4px">Daily Reflections</h2><p class="muted small" style="margin:0 0 14px">Your overall day synthesis from the Dashboard, newest first.</p>
+      <div id="mlogFeedBody"><div class="empty">No journal entries yet.</div></div>
+    </div>
+  `);
+  $('#mlogMonthBtn').addEventListener('click',()=>{ mlogView='month'; VIEWS.moodlog(); });
+  $('#mlogWeekBtn').addEventListener('click',()=>{ mlogView='week'; VIEWS.moodlog(); });
+  renderMlogInner();
+  renderMlogFeed();
+};
+
+function renderMlogInner(){
+  if(mlogView==='month') renderMlogMonth();
+  else renderMlogWeek();
+}
+
+function scoreClass(s){
+  if(s==null) return '';
+  if(s>=7) return 's-high';
+  if(s>=4) return 's-mid';
+  return 's-low';
+}
+function scoreColor(s){
+  if(s==null) return 'var(--text-2)';
+  if(s>=7) return 'var(--accent)';
+  if(s>=4) return '#b9a36a';
+  return 'var(--danger)';
+}
+
+function buildDayData(){
+  const entries = store.get('journal_entries');
+  const map = {};
+  entries.forEach(e=>{
+    if(!map[e.date]) map[e.date]={scores:[],reflections:[],sentiments:[]};
+    if(e.mood_score!=null) map[e.date].scores.push(e.mood_score);
+    if(e.reflection) map[e.date].reflections.push(e.reflection);
+    if(e.sentiment) map[e.date].sentiments.push(e.sentiment);
+  });
+  return map;
+}
+
+function renderMlogMonth(){
+  const inner = $('#mlogInner'); if(!inner) return;
+  const y=mlogDate.getFullYear(), m=mlogDate.getMonth();
+  const label = new Date(y,m,1).toLocaleDateString(undefined,{month:'long',year:'numeric'});
+  const dayData = buildDayData();
+  const first = new Date(y,m,1);
+  const startDow = first.getDay();
+  const daysInMonth = new Date(y,m+1,0).getDate();
+  const today = todayStr();
+
+  let cells = '';
+  ['S','M','T','W','T','F','S'].forEach(d=>cells+=`<div class="mlog-head">${d}</div>`);
+  for(let i=0;i<startDow;i++) cells+=`<div class="mlog-cell empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const ds = toStr(new Date(y,m,d));
+    const data = dayData[ds];
+    const avg = data&&data.scores.length ? +(data.scores.reduce((a,b)=>a+b,0)/data.scores.length).toFixed(1) : null;
+    const sc = scoreClass(avg);
+    const isToday = ds===today ? 'today-cell' : '';
+    cells+=`<div class="mlog-cell ${sc} ${isToday}" data-mlog="${ds}" title="${ds}">
+      <span class="mlog-day">${d}</span>
+      ${avg!=null?`<span class="mlog-score" style="color:${scoreColor(avg)}">${avg}</span>`:''}
+    </div>`;
+  }
+
+  inner.innerHTML = `
+    <div class="mlog-nav">
+      <button class="btn ghost sm" id="mlogPrev">‹</button>
+      <strong>${label}</strong>
+      <button class="btn ghost sm" id="mlogNext">›</button>
+    </div>
+    <div class="mlog-grid">${cells}</div>
+    <div class="mlog-legend">
+      <span><span class="sw" style="background:rgba(122,158,126,.35)"></span>7–10 high</span>
+      <span><span class="sw" style="background:rgba(185,163,106,.25)"></span>4–6 mid</span>
+      <span><span class="sw" style="background:rgba(196,122,122,.3)"></span>1–3 low</span>
+      <span><span class="sw" style="background:var(--surface-2)"></span>no entry</span>
+    </div>
+  `;
+  $('#mlogPrev').addEventListener('click',()=>{ mlogDate=new Date(y,m-1,1); renderMlogInner(); });
+  $('#mlogNext').addEventListener('click',()=>{ mlogDate=new Date(y,m+1,1); renderMlogInner(); });
+  attachMlogCellClick();
+}
+
+function renderMlogWeek(){
+  const inner = $('#mlogInner'); if(!inner) return;
+  // show 4 weeks ending on the Sunday after mlogDate
+  const dayData = buildDayData();
+  const today = todayStr();
+  const pivot = new Date(mlogDate);
+  // find the most recent Sunday on or before pivot
+  const dow = pivot.getDay();
+  pivot.setDate(pivot.getDate() - dow);
+  // go back to start of 4-week window
+  const weekStart = new Date(pivot); weekStart.setDate(weekStart.getDate()-21);
+  const label = `${weekStart.toLocaleDateString(undefined,{month:'short',day:'numeric'})} – ${pivot.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}`;
+
+  let rows='';
+  for(let w=0;w<4;w++){
+    const wStart = new Date(weekStart); wStart.setDate(wStart.getDate()+w*7);
+    const wLabel = wStart.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+    let cells='';
+    for(let d=0;d<7;d++){
+      const day = new Date(wStart); day.setDate(day.getDate()+d);
+      const ds = toStr(day);
+      const data = dayData[ds];
+      const avg = data&&data.scores.length ? +(data.scores.reduce((a,b)=>a+b,0)/data.scores.length).toFixed(1) : null;
+      const sc = scoreClass(avg);
+      const isToday = ds===today ? 'today-cell':'';
+      cells+=`<div class="mlog-cell ${sc} ${isToday}" data-mlog="${ds}" title="${ds}">
+        <span class="mlog-day">${day.getDate()}</span>
+        ${avg!=null?`<span class="mlog-score" style="color:${scoreColor(avg)}">${avg}</span>`:''}
+      </div>`;
+    }
+    rows+=`<div class="mlog-week-row"><div class="mlog-week-label">${wLabel}</div><div class="mlog-week-cells">${cells}</div></div>`;
+  }
+
+  inner.innerHTML=`
+    <div class="mlog-nav">
+      <button class="btn ghost sm" id="mlogPrev">‹ prev 4 weeks</button>
+      <strong>${label}</strong>
+      <button class="btn ghost sm" id="mlogNext">next 4 weeks ›</button>
+    </div>
+    <div style="margin-bottom:8px">
+      <div style="display:flex;gap:4px;margin-left:84px;margin-bottom:2px">
+        ${['S','M','T','W','T','F','S'].map(d=>`<div style="flex:1;font-size:10px;color:var(--text-2);text-align:center">${d}</div>`).join('')}
+      </div>
+      ${rows}
+    </div>
+    <div class="mlog-legend">
+      <span><span class="sw" style="background:rgba(122,158,126,.35)"></span>7–10 high</span>
+      <span><span class="sw" style="background:rgba(185,163,106,.25)"></span>4–6 mid</span>
+      <span><span class="sw" style="background:rgba(196,122,122,.3)"></span>1–3 low</span>
+    </div>
+  `;
+  $('#mlogPrev').addEventListener('click',()=>{ mlogDate=new Date(mlogDate); mlogDate.setDate(mlogDate.getDate()-28); renderMlogInner(); });
+  $('#mlogNext').addEventListener('click',()=>{ mlogDate=new Date(mlogDate); mlogDate.setDate(mlogDate.getDate()+28); renderMlogInner(); });
+  attachMlogCellClick();
+}
+
+function attachMlogCellClick(){
+  $$('.mlog-cell[data-mlog]').forEach(c=>c.addEventListener('click',()=>{
+    $$('.mlog-cell').forEach(x=>x.classList.remove('mlog-selected'));
+    c.classList.add('mlog-selected');
+    const feed=$('#mlogFeedBody');
+    if(!feed) return;
+    feed.scrollIntoView({behavior:'smooth',block:'nearest'});
+    // highlight the matching entry in the feed
+    const targetId='mlog-entry-'+c.dataset.mlog;
+    const el=document.getElementById(targetId);
+    if(el){
+      el.style.outline='2px solid var(--accent)';
+      el.style.outlineOffset='2px';
+      setTimeout(()=>{ if(el){el.style.outline=''; el.style.outlineOffset='';} },1800);
+      el.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+  }));
+}
+
+function renderMlogFeed(){
+  const feed=$('#mlogFeedBody'); if(!feed) return;
+  const hist=store.get('insight_history').slice().sort((a,b)=>b.date.localeCompare(a.date));
+  if(!hist.length){
+    feed.innerHTML='<div class="empty">No daily reflections yet — generate one from the Dashboard to start building your log.</div>';
+    return;
+  }
+  feed.innerHTML=hist.map(entry=>{
+    const ms=entry.mood_score, fs=entry.food_score;
+    return `<div id="mlog-entry-${entry.date}" style="padding:16px 0;border-bottom:1px solid var(--line);transition:outline .15s">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+        <span style="font-family:var(--serif);font-size:13px;color:var(--text-2);flex:0 0 auto">${prettyDate(entry.date)}</span>
+        ${ms!=null?`<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-2)">mood <strong style="font-family:var(--serif);font-size:16px;color:${scoreColor(ms)}">${ms}</strong><small>/10</small></span>`:''}
+        ${fs!=null?`<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-2)">food <strong style="font-family:var(--serif);font-size:16px;color:${scoreColor(fs)}">${fs}</strong><small>/10</small></span>`:''}
+      </div>
+      <div class="ai-reflection" style="font-family:var(--serif);font-style:italic;color:var(--text);line-height:1.7;font-size:15px">${esc(entry.insight)}</div>
+    </div>`;
+  }).join('');
+}
+
+/* =========================================================================
    BOOT
    ========================================================================= */
 function firstRun(){ return localStorage.getItem('lms_base_url')===null && !hasAnyData(); }
-(function boot(){
-  // seed defaults for url if absent so settings show it
+(async function boot(){
+  // try loading from server first; fall back to localStorage if unavailable
+  const loaded = await _loadFromServer();
+  _serverAvailable = loaded;
+  _updateSyncStatus(loaded ? 'live' : 'local');
+
   if(localStorage.getItem('lms_base_url')===null) store.set('lms_base_url',DEFAULTS.lms_base_url);
+  applyTheme(store.get("theme") || "warm-dark");
   nav('dashboard');
   if(firstRun() || localStorage.getItem('_seen')===null){
     localStorage.setItem('_seen','1');
