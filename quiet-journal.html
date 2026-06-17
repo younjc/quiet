@@ -259,10 +259,111 @@
   .tab.active{background:var(--surface-2);color:var(--text)}
 
 
+
+
+
+
+  /* ── notes (keep-style) ── */
+  .notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:4px}
+  .note-card{border-radius:var(--radius);padding:14px 16px;cursor:pointer;position:relative;transition:transform .1s,box-shadow .12s;word-break:break-word}
+  .note-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.22)}
+  .note-card.dragging{opacity:.4}
+  .note-card.drag-over{outline:2px dashed var(--accent);outline-offset:2px}
+  .note-card.pinned::before{content:'📌';position:absolute;top:8px;right:10px;font-size:13px}
+  .note-card-title{font-family:var(--serif);font-size:15px;font-weight:500;margin-bottom:6px}
+  .note-card-body{font-size:13px;line-height:1.55;color:var(--text);white-space:pre-wrap}
+  .note-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11px;color:rgba(255,255,255,.5)}
+  .note-card-footer.light{color:rgba(0,0,0,.4)}
+  .note-actions{display:flex;gap:10px;opacity:0;transition:opacity .15s}
+  .note-card:hover .note-actions{opacity:1}
+  .note-color-bar{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+  .note-color-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .1s,transform .1s}
+  .note-color-dot:hover,.note-color-dot.sel{border-color:var(--text);transform:scale(1.15)}
+  .notes-search{width:100%;padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:14px;margin-bottom:16px}
+  .notes-tag-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .note-tag-chip{padding:3px 10px;border-radius:99px;font-size:12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--text-2)}
+  .note-tag-chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .note-modal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .note-tag-pill{padding:3px 10px;border-radius:99px;font-size:12px;background:var(--surface-2);color:var(--text-2);display:flex;align-items:center;gap:4px}
+  .note-tag-pill .rm{cursor:pointer;color:var(--text-2)}
+
+  /* ── projects ── */
+  .proj-card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:12px;border-left:3px solid var(--line);transition:border-color .15s}
+  .proj-card.status-active{border-left-color:var(--accent)}
+  .proj-card.status-onhold{border-left-color:#b9a36a}
+  .proj-card.status-someday{border-left-color:var(--text-2)}
+  .proj-card.status-completed{border-left-color:var(--line);opacity:.7}
+  .proj-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .proj-title{font-family:var(--serif);font-size:17px;font-weight:500;margin:0 0 4px}
+  .proj-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .proj-log{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+  .proj-log-entry{padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px;display:flex;gap:10px}
+  .proj-log-entry:last-child{border-bottom:none}
+  .proj-log-date{font-size:11px;color:var(--text-2);flex:0 0 56px;padding-top:3px}
+  .proj-tasks{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+  .proj-task-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13.5px}
+  .proj-task-done{text-decoration:line-through;color:var(--text-2)}
+  .proj-filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+
+  /* ── shopping ── */
+  .shop-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .shop-item:last-child{border-bottom:none}
+  .shop-item.in-cart{opacity:.5}
+  .shop-cbx{width:20px;height:20px;border-radius:5px;border:2px solid var(--line);cursor:pointer;flex:0 0 20px;display:flex;align-items:center;justify-content:center;font-size:12px;transition:background .1s,border-color .1s;margin-top:2px}
+  .shop-cbx.checked{background:var(--accent);border-color:var(--accent);color:#fff}
+  .shop-item-body{flex:1;min-width:0}
+  .shop-item-name{font-size:15px;font-weight:500}
+  .shop-item.in-cart .shop-item-name{text-decoration:line-through;color:var(--text-2)}
+  .shop-item-meta{font-size:12px;color:var(--text-2);margin-top:3px;display:flex;gap:10px;flex-wrap:wrap}
+  .shop-due-soon{color:var(--danger)}
+  .shop-due-ok{color:var(--accent)}
+  .shop-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .shop-filter-chip{padding:4px 12px;border-radius:99px;font-size:12.5px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--text-2)}
+  .shop-filter-chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* ── calendar ── */
+  .cal-view-toggle{display:flex;gap:6px;margin-bottom:14px}
+  .cal-view-toggle button{padding:5px 14px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--text-2);cursor:pointer;font-size:13px}
+  .cal-view-toggle button.active{background:var(--surface-2);color:var(--text);border-color:var(--text-2)}
+  .cal-month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .cal-month-head{font-size:10px;color:var(--text-2);text-align:center;padding:4px 0;letter-spacing:.5px;font-weight:600}
+  .cal-month-cell{min-height:80px;border-radius:6px;background:var(--surface-2);padding:5px 6px;cursor:pointer;transition:background .1s;position:relative}
+  .cal-month-cell:hover{background:var(--line)}
+  .cal-month-cell.other-month{opacity:.35}
+  .cal-month-cell.cal-today{outline:2px solid var(--accent);outline-offset:-2px}
+  .cal-day-num{font-size:11px;color:var(--text-2);margin-bottom:3px}
+  .cal-today .cal-day-num{color:var(--accent);font-weight:700}
+  .cal-event-pill{font-size:10px;border-radius:3px;padding:1px 5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+  .cal-event-pill.cat-personal{background:rgba(122,158,126,.25);color:var(--accent)}
+  .cal-event-pill.cat-health{background:rgba(196,122,122,.25);color:var(--danger)}
+  .cal-event-pill.cat-social{background:rgba(122,158,196,.25);color:#7aa0c4}
+  .cal-event-pill.cat-work{background:rgba(185,163,106,.25);color:#b9a36a}
+  .cal-event-pill.cat-other{background:var(--line);color:var(--text-2)}
+  /* week view */
+  .cal-week-grid{display:grid;grid-template-columns:52px repeat(7,1fr);gap:0}
+  .cal-week-head{font-size:10px;color:var(--text-2);text-align:center;padding:4px 0;border-bottom:1px solid var(--line);font-weight:600}
+  .cal-week-head.today-col{color:var(--accent)}
+  .cal-time-label{font-size:10px;color:var(--text-2);text-align:right;padding-right:8px;height:44px;line-height:44px;border-right:1px solid var(--line)}
+  .cal-week-cell{height:44px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:2px 3px;cursor:pointer;position:relative}
+  .cal-week-cell:hover{background:var(--surface-2)}
+  .cal-week-event{font-size:10px;border-radius:3px;padding:1px 4px;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+  /* health */
+  .health-section{margin-bottom:24px}
+  .health-section h3{font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--text-2);margin:0 0 10px;font-weight:600}
+  .health-field{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);gap:12px}
+  .health-field:last-child{border-bottom:none}
+  .health-field .hf-label{font-size:13px;color:var(--text-2);flex:0 0 160px}
+  .health-field .hf-val{font-size:14px;color:var(--text);flex:1}
+  .health-field .hf-edit{cursor:pointer;color:var(--text-2);font-size:12px;flex:0 0 auto}
+  .health-field .hf-edit:hover{color:var(--accent)}
+  .health-overdue{color:var(--danger)}
+
   /* drag-drop todos */
   .todo-item[draggable]{cursor:grab}
   .todo-item[draggable]:active{cursor:grabbing}
-  .todo-item.drag-over{border-top:2px solid var(--accent);margin-top:-2px}
+  .todo-item.drag-over,.list-item.drag-over{border-top:2px solid var(--accent);margin-top:-2px}
+  .list-item[draggable]{cursor:default}
+  .list-item.dragging{opacity:.4}
   .todo-item.dragging{opacity:.4}
   .drag-handle{color:var(--text-2);cursor:grab;font-size:14px;padding:0 4px;flex:0 0 auto;user-select:none}
   .drag-handle:hover{color:var(--text)}
@@ -362,6 +463,11 @@
     <div class="nav-item" data-view="goals"><span class="ico">⤴</span>Goals</div>
     <div class="nav-item" data-view="todos"><span class="ico">✓</span>To-Do</div>
     <div class="nav-item" data-view="moodlog"><span class="ico">◉</span>Mood Log</div>
+    <div class="nav-item" data-view="calendar"><span class="ico">▦</span>Calendar</div>
+    <div class="nav-item" data-view="health"><span class="ico">♡</span>Health</div>
+    <div class="nav-item" data-view="projects"><span class="ico">◈</span>Projects</div>
+    <div class="nav-item" data-view="notes"><span class="ico">📝</span>Notes</div>
+    <div class="nav-item" data-view="shopping"><span class="ico">🛒</span>Shopping</div>
     <div class="nav-spacer"></div>
     <div class="nav-item subtle" id="openSettings"><span class="ico">⚙</span>Settings</div>
   </nav>
@@ -376,6 +482,11 @@
     <div class="view" id="view-goals"></div>
     <div class="view" id="view-todos"></div>
     <div class="view" id="view-moodlog"></div>
+    <div class="view" id="view-calendar"></div>
+    <div class="view" id="view-health"></div>
+    <div class="view" id="view-projects"></div>
+    <div class="view" id="view-notes"></div>
+    <div class="view" id="view-shopping"></div>
   </main>
 </div>
 
@@ -448,7 +559,7 @@ const DEFAULTS = {
   journal_entries: [], food_logs: [], exercise_logs: [], cycle_logs: [],
   contacts: [], interactions: [], goals: [], todos: [],
   lms_base_url: "http://localhost:1234/v1", lms_model: "", lms_api_key: "",
-  daily_insight: null, insight_history: [], theme: "warm-dark", todo_order: []
+  daily_insight: null, insight_history: [], theme: "warm-dark", todo_order: [], contact_order: [], cal_events: [], health_records: {}, shopping_items: [], projects: [], notes: [], note_order: []
 };
 /* ── server sync layer ──────────────────────────────────────────────────────
    When served via server.py, all data lives in quiet-data.json on disk.
@@ -522,9 +633,9 @@ function addDays(s,n){ const d=fromStr(s); d.setDate(d.getDate()+n); return toSt
 function diffDays(a,b){ return Math.round((fromStr(b)-fromStr(a))/86400000); }
 function prettyDate(s){
   const d=fromStr(s);
-  return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
 }
-function prettyShort(s){ const d=fromStr(s); return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}); }
+function prettyShort(s){ const d=fromStr(s); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
 
 /* ---------- toast ---------- */
 let toastT;
@@ -708,7 +819,7 @@ document.getElementById('testConn').addEventListener('click',async ()=>{
   }
 });
 
-const DATA_KEYS = ['journal_entries','food_logs','exercise_logs','cycle_logs','contacts','interactions','goals','todos','lms_base_url','lms_model','lms_api_key','daily_insight','insight_history','theme','todo_order'];
+const DATA_KEYS = ['journal_entries','food_logs','exercise_logs','cycle_logs','contacts','interactions','goals','todos','lms_base_url','lms_model','lms_api_key','daily_insight','insight_history','theme','todo_order','contact_order','cal_events','health_records','shopping_items','projects','notes','note_order'];
 document.getElementById('exportBtn').addEventListener('click',()=>{
   const out={}; DATA_KEYS.forEach(k=>out[k]=store.get(k));
   out._exported = new Date().toISOString();
@@ -1101,7 +1212,7 @@ function drawExChart(){
   const data=days.map(d=>logs.filter(l=>l.date===d).reduce((a,b)=>a+(+b.duration_minutes||0),0));
   makeChart('exChart',{
     type:'bar',
-    data:{labels:days.map(d=>fromStr(d).toLocaleDateString(undefined,{weekday:'short'})),datasets:[{data,backgroundColor:'#7A9E7E',borderRadius:4,maxBarThickness:34}]},
+    data:{labels:days.map(d=>fromStr(d).toLocaleDateString('en-US',{weekday:'short'})),datasets:[{data,backgroundColor:'#7A9E7E',borderRadius:4,maxBarThickness:34}]},
     options:Object.assign(baseLineOpts(),{scales:{x:{grid:{display:false},ticks:{color:'#8C8880',font:{size:10}}},y:{grid:{display:false},ticks:{color:'#8C8880',font:{size:10}},beginAtZero:true}}})
   });
 }
@@ -1178,7 +1289,7 @@ VIEWS.cycle=function(){
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <button class="btn ghost sm" id="cPrev">‹</button>
-        <strong>${new Date(cycleYear,cycleMonth,1).toLocaleDateString(undefined,{month:'long',year:'numeric'})}</strong>
+        <strong>${new Date(cycleYear,cycleMonth,1).toLocaleDateString('en-US',{month:'long',year:'numeric'})}</strong>
         <button class="btn ghost sm" id="cNext">›</button>
       </div>
       ${calendarHtml(s,pset,ovset)}
@@ -1270,7 +1381,7 @@ function saveCycle(){
    ========================================================================= */
 const REL_TYPES=['partner','family','friend','colleague','acquaintance','mentor'];
 const INT_TYPES=['in-person','call','text','social media','email'];
-const FREQ={weekly:7,monthly:30,quarterly:90,never:null};
+const FREQ={weekly:7,monthly:30,quarterly:90,annually:365,never:null};
 
 function lastInteraction(contactId){
   const ints=store.get('interactions').filter(i=>i.contact_id===contactId).map(i=>i.date).sort();
@@ -1288,10 +1399,25 @@ function communityScore(){
   const ok=contacts.filter(c=>!isOverdue(c)).length;
   return Math.round(ok/contacts.length*100);
 }
+let relGroupFilter='all'; // 'all' or a REL_TYPE value
+
+function getOrderedContacts(list){
+  const order=store.get('contact_order')||[];
+  const map={}; order.forEach((id,i)=>map[id]=i);
+  return list.slice().sort((a,b)=>(map[a.id]??99999)-(map[b.id]??99999));
+}
+
 VIEWS.relationships=function(){
-  const contacts=store.get('contacts');
-  const overdue=contacts.filter(isOverdue);
+  const allContacts=store.get('contacts');
+  const contacts=relGroupFilter==='all'?allContacts:allContacts.filter(c=>c.relationship_type===relGroupFilter);
+  const ordered=getOrderedContacts(contacts);
+  const overdue=allContacts.filter(isOverdue);
   const cs=communityScore();
+
+  // group toggle pills — All + each type that has at least one contact
+  const usedTypes=['all',...REL_TYPES.filter(t=>allContacts.some(c=>c.relationship_type===t))];
+  const groupToggles=usedTypes.map(t=>`<span class="chip ${relGroupFilter===t?'on':''}" data-rgroup="${t}">${t==='all'?'All':cap(t)} ${t==='all'?allContacts.length:allContacts.filter(c=>c.relationship_type===t).length}</span>`).join('');
+
   render('relationships',`
     <h1 class="page">People</h1>
     <p class="page-sub">Tending the connections that hold you.</p>
@@ -1325,48 +1451,217 @@ VIEWS.relationships=function(){
       <div class="inline-fields">
         <div class="field"><label class="fld">Name</label><input type="text" id="rName" placeholder="Name"></div>
         <div class="field"><label class="fld">Relationship</label><select id="rType">${REL_TYPES.map(t=>`<option value="${t}">${cap(t)}</option>`).join('')}</select></div>
-        <div class="field"><label class="fld">Check in</label><select id="rFreq"><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option><option value="quarterly">Quarterly</option><option value="never">Never</option></select></div>
+        <div class="field"><label class="fld">Check in</label><select id="rFreq"><option value="weekly">Weekly</option><option value="monthly" selected>Monthly</option><option value="quarterly">Quarterly</option><option value="annually">Annually</option><option value="never">Never</option></select></div>
       </div>
-      <div class="field"><label class="fld">Notes / context</label><input type="text" id="rNotes" placeholder="how you know them, what matters to them…"></div>
+      <div class="inline-fields">
+        <div class="field" style="flex:2"><label class="fld">Notes / context</label><input type="text" id="rNotes" placeholder="how you know them, what matters to them…"></div>
+        <div class="field"><label class="fld">Birthday <span class="muted">(optional)</span></label>
+          <div style="display:flex;gap:6px">
+            <input type="text" id="rBdayMD" placeholder="MM/DD" style="flex:1;max-width:80px">
+            <input type="text" id="rBdayY" placeholder="Year" style="flex:1;max-width:74px">
+          </div>
+        </div>
+      </div>
       <div class="btn-row"><button class="btn" id="rSave">Add contact</button></div>
     </div>
 
     <div class="card">
-      <h2>Contacts</h2>
-      <div id="rList">${ contacts.length? contacts.map(contactCard).join('') : '<div class="empty">No contacts yet.</div>' }</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+        <h2 style="margin:0">Contacts</h2>
+        <span class="muted small">drag ⠿ to reorder</span>
+      </div>
+      <div class="chips" id="rGroupChips" style="margin-bottom:14px">${groupToggles}</div>
+      <div id="rList">${ordered.length? ordered.map(contactCard).join('') : '<div class="empty">No contacts yet.</div>'}</div>
     </div>
   `);
   $('#rSave').addEventListener('click',saveContact);
   $('#relInsightBtn').addEventListener('click',relInsight);
+  $$('#rGroupChips [data-rgroup]').forEach(c=>c.addEventListener('click',()=>{ relGroupFilter=c.dataset.rgroup; VIEWS.relationships(); }));
   $$('#view-relationships [data-logint]').forEach(b=>b.addEventListener('click',()=>openInteraction(b.dataset.logint)));
+  $$('#view-relationships [data-cedit]').forEach(b=>b.addEventListener('click',()=>openContactEdit(b.dataset.cedit)));
   $$('#view-relationships [data-delcontact]').forEach(b=>b.addEventListener('click',()=>{ if(confirm('Delete this contact and its interactions?')){ removeById('contacts',b.dataset.delcontact); const ints=store.get('interactions').filter(i=>i.contact_id!==b.dataset.delcontact); store.set('interactions',ints); VIEWS.relationships(); } }));
+  initContactDrag();
 };
+
+function initContactDrag(){
+  let dragId=null;
+  const list=$('#rList'); if(!list) return;
+  list.addEventListener('dragstart',e=>{
+    const item=e.target.closest('.list-item[draggable]'); if(!item) return;
+    dragId=item.dataset.cid; item.classList.add('dragging');
+    e.dataTransfer.effectAllowed='move';
+  });
+  list.addEventListener('dragend',()=>{
+    dragId=null;
+    $$('.list-item',list).forEach(el=>el.classList.remove('dragging','drag-over'));
+  });
+  list.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const item=e.target.closest('.list-item[draggable]'); if(!item||item.dataset.cid===dragId) return;
+    $$('.list-item',list).forEach(el=>el.classList.remove('drag-over'));
+    item.classList.add('drag-over');
+  });
+  list.addEventListener('dragleave',e=>{ const item=e.target.closest('.list-item'); if(item) item.classList.remove('drag-over'); });
+  list.addEventListener('drop',e=>{
+    e.preventDefault();
+    const target=e.target.closest('.list-item[draggable]');
+    if(!target||!dragId||target.dataset.cid===dragId) return;
+    const items=$$('.list-item[draggable]',list);
+    const ids=items.map(el=>el.dataset.cid);
+    const fi=ids.indexOf(dragId), ti=ids.indexOf(target.dataset.cid);
+    if(fi<0||ti<0) return;
+    // merge with full contact_order so contacts not in current filter keep their position
+    const fullOrder=store.get('contact_order')||[];
+    const allIds=[...new Set([...fullOrder,...ids])];
+    allIds.splice(allIds.indexOf(dragId),1); allIds.splice(allIds.indexOf(target.dataset.cid),0,dragId);
+    store.set('contact_order',allIds);
+    if(fi<ti) target.after(list.querySelector(`[data-cid="${dragId}"]`));
+    else target.before(list.querySelector(`[data-cid="${dragId}"]`));
+    $$('.list-item',list).forEach(el=>el.classList.remove('drag-over','dragging'));
+  });
+}
+/* birthday helpers */
+function parseBday(md, yr){
+  // md = "MM/DD", yr = "YYYY" or ""
+  md=(md||'').trim(); yr=(yr||'').trim();
+  if(!md) return null;
+  const parts=md.split('/');
+  if(parts.length!==2) return null;
+  const mm=parts[0].padStart(2,'0'), dd=parts[1].padStart(2,'0');
+  if(isNaN(+mm)||isNaN(+dd)) return null;
+  if(yr && /^\d{4}$/.test(yr)) return `${yr}-${mm}-${dd}`;
+  return `${mm}-${dd}`; // no year
+}
+function bdayMD(bday){
+  if(!bday) return '';
+  const parts=bday.split('-');
+  if(parts.length===3) return `${parts[1]}/${parts[2]}`; // YYYY-MM-DD
+  return `${parts[0]}/${parts[1]}`; // MM-DD
+}
+function bdayYear(bday){
+  if(!bday) return '';
+  const parts=bday.split('-');
+  return parts.length===3 ? parts[0] : '';
+}
+function bdayAge(bday){
+  if(!bday) return null;
+  const parts=bday.split('-');
+  if(parts.length!==3) return null; // no year stored
+  const [y,m,d]=parts.map(Number);
+  const today=new Date();
+  let age=today.getFullYear()-y;
+  if(today.getMonth()+1<m||(today.getMonth()+1===m&&today.getDate()<d)) age--;
+  return age;
+}
+function birthdayNote(bday){
+  if(!bday) return '';
+  try{
+    const parts=bday.split('-');
+    // handle both YYYY-MM-DD (3 parts) and MM-DD (2 parts)
+    const mm=parts.length===3?+parts[1]:+parts[0];
+    const dd=parts.length===3?+parts[2]:+parts[1];
+    if(!mm||!dd||isNaN(mm)||isNaN(dd)) return '';
+    const todayMid=new Date(); todayMid.setHours(0,0,0,0);
+    const nextMid=new Date(todayMid.getFullYear(),mm-1,dd);
+    if(nextMid<todayMid) nextMid.setFullYear(todayMid.getFullYear()+1);
+    const days=Math.round((nextMid-todayMid)/86400000);
+    const label=new Date(todayMid.getFullYear(),mm-1,dd).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    const age=bdayAge(bday);
+    const ageTxt=age!=null?(days===0?` · turns ${age+1}`:(days<=7?` · turning ${age+1}`:'')):'';
+    if(days===0) return `<span class="pill accent" style="margin-left:6px">🎂 birthday today!${ageTxt}</span>`;
+    if(days<=7)  return `<span class="pill accent" style="margin-left:6px">🎂 ${label} · in ${days}d${ageTxt}</span>`;
+    if(days<=30) return `<span class="pill" style="margin-left:6px">🎂 ${label} · in ${days}d</span>`;
+    const ageDisp=age!=null?` · ${age} y/o`:'';
+    return `<span class="muted small" style="margin-left:4px">🎂 ${label}${ageDisp}</span>`;
+  }catch(e){ return ''; }
+}
 function contactCard(c){
+  try{
   const last=lastInteraction(c.id);
   const ints=store.get('interactions').filter(i=>i.contact_id===c.id).sort((a,b)=>b.date.localeCompare(a.date));
-  return `<div class="list-item">
+  return `<div class="list-item" data-cid="${c.id}" draggable="true">
     <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
-      <div>
-        <strong style="font-size:15.5px">${esc(c.name)}</strong>
-        <span class="pill" style="margin-left:6px">${cap(c.relationship_type)}</span>
-        ${isOverdue(c)?'<span class="pill danger" style="margin-left:4px">overdue</span>':''}
-        ${c.notes?`<div class="muted small" style="margin-top:4px">${esc(c.notes)}</div>`:''}
-        <div class="muted small" style="margin-top:4px">Check in: ${cap(c.check_in_frequency)} · Last: ${last?prettyShort(last):'never'}</div>
+      <div style="display:flex;gap:8px;align-items:flex-start;flex:1;min-width:0">
+        <span class="drag-handle" style="margin-top:3px" title="Drag to reorder">⠿</span>
+        <div style="flex:1;min-width:0">
+          <span style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+            <strong style="font-size:15.5px">${esc(c.name)}</strong>
+            <span class="pill" style="margin-left:2px">${cap(c.relationship_type)}</span>
+            ${isOverdue(c)?'<span class="pill danger">overdue</span>':''}
+            ${birthdayNote(c.birthday)}
+          </span>
+          ${c.notes?`<div class="muted small" style="margin-top:4px">${esc(c.notes)}</div>`:''}
+          <div class="muted small" style="margin-top:4px">Check in: ${cap(c.check_in_frequency)} · Last: ${last?prettyShort(last):'never'}</div>
+        </div>
       </div>
-      <div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end">
+      <div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end;flex:0 0 auto">
         <button class="btn sm" data-logint="${c.id}">Log interaction</button>
+        <span data-cedit="${c.id}" style="cursor:pointer;color:var(--text-2);font-size:12px" title="Edit contact">✎ edit</span>
         <span data-delcontact="${c.id}" style="cursor:pointer;color:var(--text-2);font-size:13px" title="Delete">✕</span>
       </div>
     </div>
-    ${ints.length?`<div style="margin-top:8px;padding-left:2px">${ints.slice(0,4).map(i=>`<div class="muted small" style="padding:2px 0">${prettyShort(i.date)} · ${esc(i.type)} · ${dotScale(i.quality_rating,5)}${i.notes?' · '+esc(i.notes):''}</div>`).join('')}</div>`:''}
+    ${ints.length?`<div style="margin-top:8px;padding-left:24px">${ints.slice(0,4).map(i=>`<div class="muted small" style="padding:2px 0">${prettyShort(i.date)} · ${esc(i.type)} · ${dotScale(i.quality_rating,5)}${i.notes?' · '+esc(i.notes):''}</div>`).join('')}</div>`:''}
   </div>`;
+  }catch(e){ console.error('contactCard error',e,c); return `<div class="list-item"><div class="muted small">Error rendering contact: ${esc(c.name||c.id)}</div></div>`; }
 }
 function saveContact(){
   const name=$('#rName').value.trim(); if(!name){ toast('Name required'); return; }
-  const c={ id:uid(), name, relationship_type:$('#rType').value, notes:$('#rNotes').value.trim(), check_in_frequency:$('#rFreq').value };
+  const c={ id:uid(), name, relationship_type:$('#rType').value, notes:$('#rNotes').value.trim(), check_in_frequency:$('#rFreq').value, birthday:parseBday($('#rBdayMD').value,$('#rBdayY').value) };
   const arr=store.get('contacts'); arr.push(c); store.set('contacts',arr);
   toast('Contact added'); VIEWS.relationships();
 }
+function openContactEdit(id){
+  const c=store.get('contacts').find(x=>x.id===id); if(!c) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Edit contact</h2>
+    <div class="inline-fields" style="margin-top:14px">
+      <div class="field" style="flex:2"><label class="fld">Name</label><input type="text" id="ceeName" value="${esc(c.name)}"></div>
+      <div class="field"><label class="fld">Relationship</label>
+        <select id="ceeType">
+          ${REL_TYPES.map(t=>`<option value="${t}" ${c.relationship_type===t?'selected':''}>${cap(t)}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Check in</label>
+        <select id="ceeFreq">
+          <option value="weekly" ${c.check_in_frequency==='weekly'?'selected':''}>Weekly</option>
+          <option value="monthly" ${c.check_in_frequency==='monthly'?'selected':''}>Monthly</option>
+          <option value="quarterly" ${c.check_in_frequency==='quarterly'?'selected':''}>Quarterly</option>
+          <option value="annually" ${c.check_in_frequency==='annually'?'selected':''}>Annually</option>
+          <option value="never" ${c.check_in_frequency==='never'?'selected':''}>Never</option>
+        </select>
+      </div>
+      <div class="field"><label class="fld">Birthday <span class="muted">(optional)</span></label>
+        <div style="display:flex;gap:6px">
+          <input type="text" id="ceeBdayMD" placeholder="MM/DD" style="flex:1;max-width:80px" value="${bdayMD(c.birthday)}">
+          <input type="text" id="ceeBdayY" placeholder="Year" style="flex:1;max-width:74px" value="${bdayYear(c.birthday)}">
+        </div>
+      </div>
+    </div>
+    <div class="field"><label class="fld">Notes / context</label>
+      <input type="text" id="ceeNotes" value="${esc(c.notes||'')}" placeholder="how you know them, what matters to them…">
+    </div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="ceeSave">Save changes</button>
+      <button class="btn ghost" id="ceeCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('ceeCancel').addEventListener('click', closeModal);
+  document.getElementById('ceeSave').addEventListener('click',()=>{
+    const name=document.getElementById('ceeName').value.trim();
+    if(!name){ toast('Name required'); return; }
+    updateById('contacts',id,x=>{
+      x.name=name;
+      x.relationship_type=document.getElementById('ceeType').value;
+      x.check_in_frequency=document.getElementById('ceeFreq').value;
+      x.birthday=parseBday(document.getElementById('ceeBdayMD').value,document.getElementById('ceeBdayY').value);
+      x.notes=document.getElementById('ceeNotes').value.trim();
+    });
+    closeModal(); toast('Contact updated'); VIEWS.relationships();
+  });
+}
+
 function openInteraction(contactId){
   const c=store.get('contacts').find(x=>x.id===contactId); if(!c) return;
   openModal(`
@@ -1523,7 +1818,7 @@ async function goalInsight(){
 /* =========================================================================
    7. TO-DO
    ========================================================================= */
-let todoTab='today';
+let todoTab='all';
 /* ---------- todo drag-drop order helpers ---------- */
 function getOrderedTodos(list){
   // apply manual order from todo_order store; unordered items go to end
@@ -1558,6 +1853,7 @@ VIEWS.todos=function(){
         <div class="field"><label class="fld">Due</label><input type="date" id="tDue"></div>
         <div class="field"><label class="fld">Priority</label><select id="tPrio"><option value="">—</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
         <div class="field"><label class="fld">Goal</label><select id="tGoal"><option value="">—</option>${goals.map(g=>`<option value="${g.id}">${esc(g.title)}</option>`).join('')}</select></div>
+        <div class="field"><label class="fld">Project</label><select id="tProject"><option value="">—</option>${store.get('projects').filter(p=>p.status!=='completed').map(p=>`<option value="${p.id}">${esc(p.title)}</option>`).join('')}</select></div>
       </div>
     </div>
 
@@ -1579,33 +1875,43 @@ VIEWS.todos=function(){
   $$('#view-todos .cbx').forEach(c=>c.addEventListener('click',()=>toggleTodo(c.dataset.t)));
   $$('#view-todos [data-delt]').forEach(b=>b.addEventListener('click',()=>{ removeById('todos',b.dataset.delt); VIEWS.todos(); }));
   $$('#view-todos [data-tedit]').forEach(b=>b.addEventListener('click',()=>openTodoEdit(b.dataset.tedit)));
+  $$('#view-todos [data-tprog]').forEach(b=>b.addEventListener('click',()=>openProgressNote(b.dataset.tprog)));
   // attach drag-drop if not completed view
   if(todoTab!=='completed') initTodoDrag();
 };
 function todoRow(t, i){
   const goal=t.goal_id? store.get('goals').find(g=>g.id===t.goal_id):null;
+  const proj=t.project_id? store.get('projects').find(p=>p.id===t.project_id):null;
   const overdue=!t.completed && t.due_date && t.due_date<todayStr();
   const draggable = todoTab!=='completed';
   const num = (i != null && !t.completed) ? `<span style="font-family:var(--serif);font-size:13px;color:var(--text-2);flex:0 0 22px;text-align:right;padding-right:4px">${i+1}.</span>` : '';
+  const notes=(t.progress_notes||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const latestNote=notes[0];
   return `<div class="todo-item ${t.completed?'done':''}" data-id="${t.id}" ${draggable?'draggable="true"':''}>
     ${draggable?'<span class="drag-handle" title="Drag to reorder">⠿</span>':''}
     ${num}
     <div class="cbx ${t.completed?'done':''}" data-t="${t.id}">✓</div>
-    <div class="ttl">
+    <div class="ttl" style="flex:1;min-width:0">
       <div>${esc(t.title)}</div>
       <div class="entry-meta" style="margin:2px 0 0">
         ${t.priority?`<span class="pill ${t.priority==='high'?'danger':t.priority==='medium'?'accent':''}">${cap(t.priority)}</span>`:''}
         ${t.due_date?`<span style="color:${overdue?'var(--danger)':'var(--text-2)'}">${prettyShort(t.due_date)}${overdue?' · overdue':''}</span>`:''}
         ${goal?`<span class="muted">↳ ${esc(goal.title)}</span>`:''}
+        ${proj?`<span class="muted">◈ ${esc(proj.title)}</span>`:''}
       </div>
+      ${latestNote?`<div style="margin-top:5px;padding:5px 8px;background:var(--surface-2);border-radius:5px;font-size:12.5px;color:var(--text-2);border-left:2px solid var(--accent-dim)">
+        <span style="color:var(--text-2);font-size:11px">${prettyShort(latestNote.date)} · </span>${esc(latestNote.note)}
+        ${notes.length>1?`<span class="muted" style="font-size:11px"> · ${notes.length} notes</span>`:''}
+      </div>`:''}
     </div>
-    <span data-tedit="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:13px;padding:0 6px" title="Edit task">✎</span>
+    <span data-tprog="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:13px;padding:0 6px" title="Add progress note">✦</span>
+    <span data-tedit="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:13px;padding:0 4px" title="Edit task">✎</span>
     <span data-delt="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:13px" title="Delete">✕</span>
   </div>`;
 }
 function addTodo(){
   const title=$('#tInput').value.trim(); if(!title) return;
-  const t={ id:uid(), title, due_date:$('#tDue').value||null, priority:$('#tPrio').value||null, goal_id:$('#tGoal').value||null, completed:false, completed_date:null, created_date:todayStr() };
+  const t={ id:uid(), title, due_date:$('#tDue').value||null, priority:$('#tPrio').value||null, goal_id:$('#tGoal').value||null, project_id:$('#tProject').value||null, completed:false, completed_date:null, created_date:todayStr() };
   const arr=store.get('todos'); arr.push(t); store.set('todos',arr);
   VIEWS.todos();
 }
@@ -1616,6 +1922,15 @@ function toggleTodo(id){
 function openTodoEdit(id){
   const t=store.get('todos').find(x=>x.id===id); if(!t) return;
   const goals=store.get('goals').filter(g=>g.status==='active');
+  const notes=(t.progress_notes||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const notesHtml=notes.length?`
+    <div style="margin-top:4px;max-height:160px;overflow-y:auto">
+      ${notes.map((n,i)=>`<div style="display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line)">
+        <span style="font-size:11px;color:var(--text-2);flex:0 0 56px;padding-top:2px">${prettyShort(n.date)}</span>
+        <span style="flex:1;font-size:13px">${esc(n.note)}</span>
+        <span data-delnote="${i}" style="cursor:pointer;color:var(--text-2);font-size:12px;flex:0 0 auto">✕</span>
+      </div>`).join('')}
+    </div>`:'<div class="muted small">No progress notes yet. Use ✦ on the task to add one.</div>';
   openModal(`
     <h2 style="font-family:var(--serif);font-weight:500">Edit task</h2>
     <div class="field"><label class="fld">Title</label><input type="text" id="teTitle" value="${esc(t.title)}"></div>
@@ -1630,11 +1945,23 @@ function openTodoEdit(id){
         </select>
       </div>
     </div>
-    <div class="field"><label class="fld">Linked goal</label>
-      <select id="teGoal">
-        <option value="" ${!t.goal_id?'selected':''}>— none —</option>
-        ${goals.map(g=>`<option value="${g.id}" ${t.goal_id===g.id?'selected':''}>${esc(g.title)}</option>`).join('')}
-      </select>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Linked goal</label>
+        <select id="teGoal">
+          <option value="" ${!t.goal_id?'selected':''}>— none —</option>
+          ${goals.map(g=>`<option value="${g.id}" ${t.goal_id===g.id?'selected':''}>${esc(g.title)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field"><label class="fld">Linked project</label>
+        <select id="teProject">
+          <option value="" ${!t.project_id?'selected':''}>— none —</option>
+          ${store.get('projects').map(p=>`<option value="${p.id}" ${t.project_id===p.id?'selected':''}>${esc(p.title)}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:6px">
+      <label class="fld">Progress notes (${notes.length})</label>
+      ${notesHtml}
     </div>
     <div class="btn-row" style="margin-top:14px">
       <button class="btn" id="teSave">Save changes</button>
@@ -1650,8 +1977,51 @@ function openTodoEdit(id){
       x.due_date=document.getElementById('teDue').value||null;
       x.priority=document.getElementById('tePrio').value||null;
       x.goal_id=document.getElementById('teGoal').value||null;
+      x.project_id=document.getElementById('teProject').value||null;
     });
     closeModal(); toast('Task updated'); VIEWS.todos();
+  });
+  // delete individual notes
+  document.querySelectorAll('[data-delnote]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const idx=+btn.dataset.delnote;
+      updateById('todos',id,x=>{
+        const ns=(x.progress_notes||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
+        ns.splice(idx,1);
+        x.progress_notes=ns;
+      });
+      closeModal(); openTodoEdit(id);
+    });
+  });
+}
+
+function openProgressNote(id){
+  const t=store.get('todos').find(x=>x.id===id); if(!t) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Progress note</h2>
+    <p class="muted small" style="margin-top:0">${esc(t.title)}</p>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Date</label><input type="date" id="pnDate" value="${todayStr()}"></div>
+    </div>
+    <div class="field"><label class="fld">What did you do / what progress was made?</label>
+      <textarea id="pnNote" style="min-height:90px" placeholder="Sent the first draft, waiting on feedback…"></textarea>
+    </div>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn" id="pnSave">Save note</button>
+      <button class="btn ghost" id="pnCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('pnNote').focus();
+  document.getElementById('pnCancel').addEventListener('click', closeModal);
+  document.getElementById('pnSave').addEventListener('click',()=>{
+    const note=document.getElementById('pnNote').value.trim();
+    if(!note){ toast('Note cannot be empty'); return; }
+    const date=document.getElementById('pnDate').value||todayStr();
+    updateById('todos',id,x=>{
+      if(!x.progress_notes) x.progress_notes=[];
+      x.progress_notes.push({id:uid(),date,note});
+    });
+    closeModal(); toast('Progress note saved'); VIEWS.todos();
   });
 }
 
@@ -1716,7 +2086,7 @@ VIEWS.dashboard=function(){
 
   render('dashboard',`
     <h1 class="page">${greeting()}</h1>
-    <p class="page-sub">${new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</p>
+    <p class="page-sub">${new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}</p>
 
     <div class="stat-grid">
       <div class="stat"><div class="k">Mood</div><div class="v">${todayMood!=null?todayMood+' <small>/10</small>':'<small class="muted">—</small>'}</div></div>
@@ -1871,7 +2241,7 @@ function buildDayData(){
 function renderMlogMonth(){
   const inner = $('#mlogInner'); if(!inner) return;
   const y=mlogDate.getFullYear(), m=mlogDate.getMonth();
-  const label = new Date(y,m,1).toLocaleDateString(undefined,{month:'long',year:'numeric'});
+  const label = new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
   const dayData = buildDayData();
   const first = new Date(y,m,1);
   const startDow = first.getDay();
@@ -1923,12 +2293,12 @@ function renderMlogWeek(){
   pivot.setDate(pivot.getDate() - dow);
   // go back to start of 4-week window
   const weekStart = new Date(pivot); weekStart.setDate(weekStart.getDate()-21);
-  const label = `${weekStart.toLocaleDateString(undefined,{month:'short',day:'numeric'})} – ${pivot.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}`;
+  const label = `${weekStart.toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${pivot.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
 
   let rows='';
   for(let w=0;w<4;w++){
     const wStart = new Date(weekStart); wStart.setDate(wStart.getDate()+w*7);
-    const wLabel = wStart.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+    const wLabel = wStart.toLocaleDateString('en-US',{month:'short',day:'numeric'});
     let cells='';
     for(let d=0;d<7;d++){
       const day = new Date(wStart); day.setDate(day.getDate()+d);
@@ -2005,6 +2375,1081 @@ function renderMlogFeed(){
       <div class="ai-reflection" style="font-family:var(--serif);font-style:italic;color:var(--text);line-height:1.7;font-size:15px">${esc(entry.insight)}</div>
     </div>`;
   }).join('');
+}
+
+/* =========================================================================
+   CALENDAR
+   ========================================================================= */
+let calView='month';
+let calDate=new Date();
+let calSelectedDate=null;
+
+const CAL_CATS=['personal','health','social','work','other'];
+
+VIEWS.calendar=function(){
+  render('calendar',`
+    <h1 class="page">Calendar</h1>
+    <p class="page-sub">Your private calendar — health, life, whatever you want to keep close.</p>
+    <div class="card">
+      <div class="cal-view-toggle">
+        <button id="calMonthBtn" class="${calView==='month'?'active':''}">Month</button>
+        <button id="calWeekBtn" class="${calView==='week'?'active':''}">Week</button>
+      </div>
+      <div id="calInner"></div>
+    </div>
+  `);
+  $('#calMonthBtn').addEventListener('click',()=>{ calView='month'; VIEWS.calendar(); });
+  $('#calWeekBtn').addEventListener('click',()=>{ calView='week'; VIEWS.calendar(); });
+  renderCalInner();
+};
+
+function renderCalInner(){
+  if(calView==='month') renderCalMonth();
+  else renderCalWeek();
+}
+
+function birthdayEventsForYear(y){
+  // generate virtual birthday events for a given year from contacts
+  const contacts=store.get('contacts');
+  const events=[];
+  contacts.forEach(c=>{
+    if(!c.birthday) return;
+    try{
+    const parts=c.birthday.split('-');
+    let mm,dd;
+    if(parts.length===3){ mm=parts[1]; dd=parts[2]; }
+    else { mm=parts[0]; dd=parts[1]; }
+    if(!mm||!dd) return;
+    const dateStr=`${y}-${mm}-${dd}`;
+    const age=bdayAge(c.birthday);
+    const ageStr=age!=null?` (turns ${age+1})`:'';
+    events.push({
+      id:'bday-'+c.id+'-'+y,
+      date:dateStr,
+      title:`🎂 ${c.name}${ageStr}`,
+      time:null,
+      end_time:null,
+      category:'personal',
+      notes:'Birthday',
+      _virtual:true
+    });
+    }catch(e){ /* skip malformed birthday */ }
+  });
+  return events;
+}
+
+function calEventsByDate(y){
+  const events=store.get('cal_events');
+  // merge in birthday events for the given year (and adjacent years for wrap)
+  const years=y?[y-1,y,y+1]:[new Date().getFullYear()];
+  const bdayEvents=[];
+  years.forEach(yr=>bdayEvents.push(...birthdayEventsForYear(yr)));
+  const map={};
+  [...events,...bdayEvents].forEach(e=>{
+    if(!map[e.date]) map[e.date]=[];
+    map[e.date].push(e);
+  });
+  return map;
+}
+
+function renderCalMonth(){
+  const inner=$('#calInner'); if(!inner) return;
+  const y=calDate.getFullYear(), m=calDate.getMonth();
+  const label=new Date(y,m,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  const byDate=calEventsByDate(y);
+  const startDow=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const today=todayStr();
+
+  // fill to complete 6-week grid
+  let cells='';
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>cells+=`<div class="cal-month-head">${d}</div>`);
+  // prev month filler
+  const prevDays=new Date(y,m,0).getDate();
+  for(let i=startDow-1;i>=0;i--){
+    const ds=toStr(new Date(y,m-1,prevDays-i));
+    cells+=`<div class="cal-month-cell other-month" data-caldate="${ds}"><div class="cal-day-num">${prevDays-i}</div></div>`;
+  }
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=toStr(new Date(y,m,d));
+    const isToday=ds===today?'cal-today':'';
+    const dayEvents=(byDate[ds]||[]).slice(0,3);
+    const more=(byDate[ds]||[]).length>3?`<div style="font-size:9px;color:var(--text-2)">+${(byDate[ds]||[]).length-3} more</div>`:'';
+    cells+=`<div class="cal-month-cell ${isToday}" data-caldate="${ds}">
+      <div class="cal-day-num">${d}</div>
+      ${dayEvents.map(e=>`<div class="cal-event-pill cat-${e.category||'other'}" data-evid="${e.id}" title="${esc(e.title)}">${esc(e.title)}</div>`).join('')}
+      ${more}
+    </div>`;
+  }
+  // next month filler
+  const total=startDow+daysInMonth;
+  const remaining=total%7===0?0:7-(total%7);
+  for(let d=1;d<=remaining;d++){
+    const ds=toStr(new Date(y,m+1,d));
+    cells+=`<div class="cal-month-cell other-month" data-caldate="${ds}"><div class="cal-day-num">${d}</div></div>`;
+  }
+
+  inner.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <button class="btn ghost sm" id="calPrev">‹</button>
+      <strong>${label}</strong>
+      <button class="btn ghost sm" id="calNext">›</button>
+    </div>
+    <div class="cal-month-grid">${cells}</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11.5px">
+      ${CAL_CATS.map(c=>`<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;background:${catBg(c)}"></span>${cap(c)}</span>`).join('')}
+    </div>
+  `;
+  $('#calPrev').addEventListener('click',()=>{ calDate=new Date(y,m-1,1); renderCalInner(); });
+  $('#calNext').addEventListener('click',()=>{ calDate=new Date(y,m+1,1); renderCalInner(); });
+  $$('.cal-month-cell[data-caldate]').forEach(cell=>{
+    cell.addEventListener('click',e=>{
+      if(e.target.closest('[data-evid]')) return; // let event click handle
+      openCalEventModal(cell.dataset.caldate);
+    });
+  });
+  $$('[data-evid]').forEach(el=>el.addEventListener('click',e=>{
+    e.stopPropagation();
+    openCalEditModal(el.dataset.evid);
+  }));
+}
+
+function catBg(c){
+  return {personal:'rgba(122,158,126,.4)',health:'rgba(196,122,122,.4)',social:'rgba(122,158,196,.4)',work:'rgba(185,163,106,.4)',other:'rgba(140,136,128,.3)'}[c]||'rgba(140,136,128,.3)';
+}
+
+function renderCalWeek(){
+  const inner=$('#calInner'); if(!inner) return;
+  // week containing calDate, starting Sunday
+  const dow=calDate.getDay();
+  const weekStart=new Date(calDate); weekStart.setDate(calDate.getDate()-dow);
+  const days=[];
+  for(let i=0;i<7;i++){ const d=new Date(weekStart); d.setDate(weekStart.getDate()+i); days.push(d); }
+  const byDate=calEventsByDate(days[0].getFullYear());
+  const today=todayStr();
+  const label=`${days[0].toLocaleDateString('en-US',{month:'short',day:'numeric'})} – ${days[6].toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+  const hours=[7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+
+  let headRow='<div class="cal-week-head"></div>';
+  days.forEach(d=>{
+    const ds=toStr(d);
+    const isToday=ds===today?'today-col':'';
+    headRow+=`<div class="cal-week-head ${isToday}">${d.toLocaleDateString('en-US',{weekday:'short'})} ${d.getDate()}</div>`;
+  });
+
+  // all-day events at top
+  let allDayRow='<div style="font-size:10px;color:var(--text-2);padding-right:8px;border-right:1px solid var(--line);text-align:right;padding-top:4px">all day</div>';
+  days.forEach(d=>{
+    const ds=toStr(d);
+    const allDay=(byDate[ds]||[]).filter(e=>!e.time);
+    allDayRow+=`<div style="border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:2px 3px;min-height:24px;cursor:pointer" data-caldate="${ds}">
+      ${allDay.map(e=>`<div class="cal-week-event cat-${e.category||'other'}" data-evid="${e.id}">${esc(e.title)}</div>`).join('')}
+    </div>`;
+  });
+
+  let timeRows='';
+  hours.forEach(h=>{
+    const label12=h>12?`${h-12}pm`:h===12?'12pm':`${h}am`;
+    timeRows+=`<div class="cal-time-label">${label12}</div>`;
+    days.forEach(d=>{
+      const ds=toStr(d);
+      const hStr=String(h).padStart(2,'0');
+      const hourEvents=(byDate[ds]||[]).filter(e=>e.time&&e.time.startsWith(hStr));
+      timeRows+=`<div class="cal-week-cell" data-caldate="${ds}" data-hour="${hStr}">
+        ${hourEvents.map(e=>`<div class="cal-week-event cat-${e.category||'other'}" data-evid="${e.id}">${e.time?e.time.slice(0,5)+' ':''} ${esc(e.title)}</div>`).join('')}
+      </div>`;
+    });
+  });
+
+  inner.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <button class="btn ghost sm" id="calPrev">‹ prev week</button>
+      <strong>${label}</strong>
+      <button class="btn ghost sm" id="calNext">next week ›</button>
+    </div>
+    <div class="cal-week-grid" style="border:1px solid var(--line);border-radius:6px;overflow:hidden">
+      ${headRow}
+      ${allDayRow}
+      ${timeRows}
+    </div>
+  `;
+  $('#calPrev').addEventListener('click',()=>{ calDate=new Date(calDate); calDate.setDate(calDate.getDate()-7); renderCalInner(); });
+  $('#calNext').addEventListener('click',()=>{ calDate=new Date(calDate); calDate.setDate(calDate.getDate()+7); renderCalInner(); });
+  $$('[data-caldate]').forEach(cell=>{
+    cell.addEventListener('click',e=>{
+      if(e.target.closest('[data-evid]')) return;
+      const hour=cell.dataset.hour||'';
+      openCalEventModal(cell.dataset.caldate, hour);
+    });
+  });
+  $$('[data-evid]').forEach(el=>el.addEventListener('click',e=>{ e.stopPropagation(); openCalEditModal(el.dataset.evid); }));
+}
+
+function openCalEventModal(date, hour){
+  const timeVal=hour?hour+':00':'';
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">New event</h2>
+    <p class="muted small" style="margin-top:0">${prettyDate(date)}</p>
+    <div class="field"><label class="fld">Title</label><input type="text" id="cevTitle" placeholder="What's happening?"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Time <span class="muted">(optional)</span></label><input type="time" id="cevTime" value="${timeVal}"></div>
+      <div class="field"><label class="fld">End time <span class="muted">(optional)</span></label><input type="time" id="cevEnd"></div>
+    </div>
+    <div class="field"><label class="fld">Category</label>
+      <select id="cevCat">${CAL_CATS.map(c=>`<option value="${c}">${cap(c)}</option>`).join('')}</select>
+    </div>
+    <div class="field"><label class="fld">Notes <span class="muted">(optional)</span></label><input type="text" id="cevNotes" placeholder="details…"></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="cevSave">Add event</button>
+      <button class="btn ghost" id="cevCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('cevTitle').focus();
+  document.getElementById('cevCancel').addEventListener('click',closeModal);
+  document.getElementById('cevSave').addEventListener('click',()=>{
+    const title=document.getElementById('cevTitle').value.trim();
+    if(!title){ toast('Title required'); return; }
+    const ev={id:uid(),date,title,time:document.getElementById('cevTime').value||null,end_time:document.getElementById('cevEnd').value||null,category:document.getElementById('cevCat').value,notes:document.getElementById('cevNotes').value.trim()};
+    const arr=store.get('cal_events'); arr.push(ev); store.set('cal_events',arr);
+    closeModal(); toast('Event added'); VIEWS.calendar();
+  });
+}
+
+function openCalEditModal(id){
+  const ev=store.get('cal_events').find(x=>x.id===id); if(!ev) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Edit event</h2>
+    <p class="muted small" style="margin-top:0">${prettyDate(ev.date)}</p>
+    <div class="field"><label class="fld">Title</label><input type="text" id="cevTitle" value="${esc(ev.title)}"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Date</label><input type="date" id="cevDate" value="${ev.date}"></div>
+      <div class="field"><label class="fld">Time</label><input type="time" id="cevTime" value="${ev.time||''}"></div>
+      <div class="field"><label class="fld">End time</label><input type="time" id="cevEnd" value="${ev.end_time||''}"></div>
+    </div>
+    <div class="field"><label class="fld">Category</label>
+      <select id="cevCat">${CAL_CATS.map(c=>`<option value="${c}" ${ev.category===c?'selected':''}>${cap(c)}</option>`).join('')}</select>
+    </div>
+    <div class="field"><label class="fld">Notes</label><input type="text" id="cevNotes" value="${esc(ev.notes||'')}"></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="cevUpdate">Save changes</button>
+      <button class="btn danger sm" id="cevDelete">Delete</button>
+      <button class="btn ghost" id="cevCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('cevCancel').addEventListener('click',closeModal);
+  document.getElementById('cevDelete').addEventListener('click',()=>{ if(confirm('Delete this event?')){ removeById('cal_events',id); closeModal(); toast('Event deleted'); VIEWS.calendar(); } });
+  document.getElementById('cevUpdate').addEventListener('click',()=>{
+    const title=document.getElementById('cevTitle').value.trim(); if(!title){ toast('Title required'); return; }
+    updateById('cal_events',id,x=>{ x.title=title; x.date=document.getElementById('cevDate').value||x.date; x.time=document.getElementById('cevTime').value||null; x.end_time=document.getElementById('cevEnd').value||null; x.category=document.getElementById('cevCat').value; x.notes=document.getElementById('cevNotes').value.trim(); });
+    closeModal(); toast('Event updated'); VIEWS.calendar();
+  });
+}
+
+/* =========================================================================
+   HEALTH RECORDS
+   ========================================================================= */
+const HEALTH_PROVIDERS=[
+  {key:'pcp',label:'Primary Care (PCP/GP)'},
+  {key:'dentist',label:'Dentist'},
+  {key:'obgyn',label:'OB/GYN'},
+  {key:'dermatologist',label:'Dermatologist'},
+  {key:'eye',label:'Eye Doctor'},
+  {key:'therapist',label:'Therapist / Mental Health'},
+  {key:'other1',label:'Other Specialist 1'},
+  {key:'other2',label:'Other Specialist 2'},
+];
+const HEALTH_VISITS=[
+  {key:'annual_physical',label:'Annual Physical',provider:'pcp',intervalDays:365},
+  {key:'dental_cleaning',label:'Dental Cleaning',provider:'dentist',intervalDays:180},
+  {key:'dental_xray',label:'Dental X-Ray',provider:'dentist',intervalDays:365},
+  {key:'eye_exam',label:'Eye Exam',provider:'eye',intervalDays:730},
+  {key:'obgyn_visit',label:'OB/GYN Visit / Pap',provider:'obgyn',intervalDays:365},
+  {key:'derm_visit',label:'Skin Check',provider:'dermatologist',intervalDays:365},
+  {key:'therapy_session',label:'Last Therapy Session',provider:'therapist',intervalDays:null},
+  {key:'blood_work',label:'Blood Work / Labs',provider:'pcp',intervalDays:365},
+  {key:'other_visit1',label:'Other Visit 1',provider:null,intervalDays:null},
+  {key:'other_visit2',label:'Other Visit 2',provider:null,intervalDays:null},
+];
+
+function healthDueStatus(lastDate, intervalDays){
+  if(!lastDate||!intervalDays) return null;
+  const daysAgo=diffDays(lastDate,todayStr());
+  const daysUntilDue=intervalDays-daysAgo;
+  if(daysUntilDue<=0) return {status:'overdue',days:Math.abs(daysUntilDue)};
+  if(daysUntilDue<=30) return {status:'soon',days:daysUntilDue};
+  return {status:'ok',days:daysUntilDue};
+}
+
+VIEWS.health=function(){
+  const rec=store.get('health_records')||{};
+  const providers=rec.providers||{};
+  const visits=rec.visits||{};
+
+  const providerRows=HEALTH_PROVIDERS.map(p=>{
+    const info=providers[p.key]||{};
+    return `<div class="health-field">
+      <span class="hf-label">${p.label}</span>
+      <span class="hf-val">${info.name?`<strong>${esc(info.name)}</strong>${info.phone?' · '+esc(info.phone):''}${info.address?' · '+esc(info.address):''}${info.notes?' · '+esc(info.notes):''}` : '<span class="muted">—</span>'}</span>
+      <span class="hf-edit" data-editprov="${p.key}">✎ edit</span>
+    </div>`;
+  }).join('');
+
+  const visitRows=HEALTH_VISITS.map(v=>{
+    const info=visits[v.key]||{};
+    const due=healthDueStatus(info.date,v.intervalDays);
+    let dueLabel='';
+    if(due){
+      if(due.status==='overdue') dueLabel=`<span class="pill danger" style="margin-left:8px">overdue ${due.days}d</span>`;
+      else if(due.status==='soon') dueLabel=`<span class="pill" style="margin-left:8px">due in ${due.days}d</span>`;
+      else dueLabel=`<span class="muted small" style="margin-left:8px">due in ~${Math.round(due.days/30)}mo</span>`;
+    }
+    return `<div class="health-field">
+      <span class="hf-label">${v.label}</span>
+      <span class="hf-val">${info.date?`${prettyDate(info.date)}${info.notes?' · <span class=\"muted small\">' + esc(info.notes) + '</span>':''}${dueLabel}`:'<span class="muted">—</span>'}</span>
+      <span class="hf-edit" data-editvisit="${v.key}">✎ edit</span>
+    </div>`;
+  }).join('');
+
+  // upcoming health events from calendar
+  const upcoming=store.get('cal_events').filter(e=>e.category==='health'&&e.date>=todayStr()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
+
+  render('health',`
+    <h1 class="page">Health</h1>
+    <p class="page-sub">Your medical information, all in one private place.</p>
+
+    ${upcoming.length?`<div class="card">
+      <h3>Upcoming health appointments</h3>
+      ${upcoming.map(e=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)">
+        <span>${esc(e.title)}${e.notes?' <span class="muted small">· '+esc(e.notes)+'</span>':''}</span>
+        <span class="muted small">${prettyDate(e.date)}${e.time?' · '+fmtTime(e.time):''}</span>
+      </div>`).join('')}
+      <div class="muted small" style="margin-top:8px">Add more via the Calendar section.</div>
+    </div>`:''}
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <h2 style="margin:0">Visits & screenings</h2>
+      </div>
+      <div class="health-section">${visitRows}</div>
+    </div>
+
+    <div class="card">
+      <h2>My providers</h2>
+      <div class="health-section">${providerRows}</div>
+    </div>
+
+    <div class="card">
+      <h2>Personal health notes</h2>
+      <div style="margin-bottom:10px">${rec.notes?`<div class="entry-body" style="font-size:14.5px">${esc(rec.notes)}</div>`:'<div class="muted small">Allergies, medications, conditions, insurance info — anything you want to keep handy.</div>'}</div>
+      <button class="btn ghost sm" id="editHealthNotes">Edit notes</button>
+    </div>
+  `);
+
+  $$('[data-editprov]').forEach(b=>b.addEventListener('click',()=>openProviderEdit(b.dataset.editprov)));
+  $$('[data-editvisit]').forEach(b=>b.addEventListener('click',()=>openVisitEdit(b.dataset.editvisit)));
+  $('#editHealthNotes').addEventListener('click',openHealthNotesEdit);
+};
+
+function fmtTime(t){
+  if(!t) return '';
+  const [h,m]=t.split(':').map(Number);
+  const ampm=h>=12?'pm':'am';
+  return `${h%12||12}:${String(m).padStart(2,'0')}${ampm}`;
+}
+
+function openProviderEdit(key){
+  const p=HEALTH_PROVIDERS.find(x=>x.key===key); if(!p) return;
+  const rec=store.get('health_records')||{};
+  const info=(rec.providers||{})[key]||{};
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">${p.label}</h2>
+    <div class="field"><label class="fld">Provider name</label><input type="text" id="provName" value="${esc(info.name||'')}"></div>
+    <div class="field"><label class="fld">Phone</label><input type="text" id="provPhone" value="${esc(info.phone||'')}" placeholder="(555) 555-5555"></div>
+    <div class="field"><label class="fld">Address / clinic</label><input type="text" id="provAddr" value="${esc(info.address||'')}"></div>
+    <div class="field"><label class="fld">Notes</label><input type="text" id="provNotes" value="${esc(info.notes||'')}" placeholder="insurance accepted, portal link…"></div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="provSave">Save</button>
+      <button class="btn ghost" id="provCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('provCancel').addEventListener('click',closeModal);
+  document.getElementById('provSave').addEventListener('click',()=>{
+    const rec=store.get('health_records')||{};
+    if(!rec.providers) rec.providers={};
+    rec.providers[key]={
+      name:document.getElementById('provName').value.trim(),
+      phone:document.getElementById('provPhone').value.trim(),
+      address:document.getElementById('provAddr').value.trim(),
+      notes:document.getElementById('provNotes').value.trim(),
+    };
+    store.set('health_records',rec);
+    closeModal(); toast('Provider saved'); VIEWS.health();
+  });
+}
+
+function openVisitEdit(key){
+  const v=HEALTH_VISITS.find(x=>x.key===key); if(!v) return;
+  const rec=store.get('health_records')||{};
+  const info=(rec.visits||{})[key]||{};
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">${v.label}</h2>
+    <div class="field"><label class="fld">Date of last visit</label><input type="date" id="visDate" value="${info.date||''}"></div>
+    <div class="field"><label class="fld">Notes <span class="muted">(optional)</span></label><input type="text" id="visNotes" value="${esc(info.notes||'')}" placeholder="findings, follow-ups, provider seen…"></div>
+    ${v.intervalDays?`<p class="muted small">Recommended every ${v.intervalDays>=365?Math.round(v.intervalDays/365)+' year(s)':Math.round(v.intervalDays/30)+' months'}.</p>`:''}
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="visSave">Save</button>
+      <button class="btn ghost" id="visCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('visCancel').addEventListener('click',closeModal);
+  document.getElementById('visSave').addEventListener('click',()=>{
+    const rec=store.get('health_records')||{};
+    if(!rec.visits) rec.visits={};
+    rec.visits[key]={date:document.getElementById('visDate').value||null,notes:document.getElementById('visNotes').value.trim()};
+    store.set('health_records',rec);
+    closeModal(); toast('Visit saved'); VIEWS.health();
+  });
+}
+
+function openHealthNotesEdit(){
+  const rec=store.get('health_records')||{};
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Health notes</h2>
+    <p class="muted small" style="margin-top:0">Allergies, medications, conditions, insurance, anything you want handy.</p>
+    <div class="field"><textarea id="healthNotes" style="min-height:160px">${esc(rec.notes||'')}</textarea></div>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn" id="hnSave">Save</button>
+      <button class="btn ghost" id="hnCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('hnCancel').addEventListener('click',closeModal);
+  document.getElementById('hnSave').addEventListener('click',()=>{
+    const rec=store.get('health_records')||{};
+    rec.notes=document.getElementById('healthNotes').value.trim();
+    store.set('health_records',rec);
+    closeModal(); toast('Notes saved'); VIEWS.health();
+  });
+}
+
+/* =========================================================================
+   PROJECTS
+   ========================================================================= */
+const PROJ_STATUSES=['active','on hold','someday','completed'];
+const PROJ_CATS=['home','business','personal','creative','other'];
+let projFilter='active';
+
+VIEWS.projects=function(){
+  const projects=store.get('projects');
+  const filtered=projFilter==='all'?projects:projects.filter(p=>p.status===projFilter);
+  const sorted=filtered.slice().sort((a,b)=>{
+    const so={active:0,'on hold':1,someday:2,completed:3};
+    return (so[a.status]??9)-(so[b.status]??9)||(a.title.localeCompare(b.title));
+  });
+
+  const filterPills=['all',...PROJ_STATUSES].map(s=>{
+    const count=s==='all'?projects.length:projects.filter(p=>p.status===s).length;
+    return `<span class="chip ${projFilter===s?'on':''}" data-pfilter="${s}">${s==='all'?'All':cap(s)} ${count}</span>`;
+  }).join('');
+
+  render('projects',`
+    <h1 class="page">Projects</h1>
+    <p class="page-sub">Ideas, plans, and things you're building — with room to think.</p>
+
+    <div class="card">
+      <h2 style="margin-bottom:12px">New project</h2>
+      <div class="inline-fields">
+        <div class="field" style="flex:3"><label class="fld">Title</label><input type="text" id="pjTitle" placeholder="Kitchen renovation, Side business idea…"></div>
+        <div class="field"><label class="fld">Category</label>
+          <select id="pjCat">${PROJ_CATS.map(c=>`<option value="${c}">${cap(c)}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label class="fld">Status</label>
+          <select id="pjStatus">
+            <option value="active">Active</option>
+            <option value="on hold">On hold</option>
+            <option value="someday">Someday</option>
+          </select>
+        </div>
+      </div>
+      <div class="inline-fields">
+        <div class="field" style="flex:3"><label class="fld">Description <span class="muted">(optional)</span></label><input type="text" id="pjDesc" placeholder="What is this project about?"></div>
+        <div class="field"><label class="fld">Target date <span class="muted">(optional)</span></label><input type="date" id="pjDate"></div>
+        <div class="field"><label class="fld">Budget <span class="muted">(optional)</span></label><input type="text" id="pjBudget" placeholder="$500, TBD…"></div>
+      </div>
+      <div class="btn-row"><button class="btn" id="pjAdd">Create project</button></div>
+    </div>
+
+    <div class="proj-filter-bar">${filterPills}</div>
+
+    <div id="pjList">
+      ${sorted.length?sorted.map(projCard).join(''):'<div class="empty">No projects yet.</div>'}
+    </div>
+  `);
+
+  $('#pjAdd').addEventListener('click', addProject);
+  $$('[data-pfilter]').forEach(c=>c.addEventListener('click',()=>{ projFilter=c.dataset.pfilter; VIEWS.projects(); }));
+  $$('[data-pjedit]').forEach(b=>b.addEventListener('click',()=>openProjEdit(b.dataset.pjedit)));
+  $$('[data-pjdel]').forEach(b=>b.addEventListener('click',()=>{ if(confirm('Delete this project?')){ removeById('projects',b.dataset.pjdel); VIEWS.projects(); } }));
+  $$('[data-pjlog]').forEach(b=>b.addEventListener('click',()=>openProjLog(b.dataset.pjlog)));
+  $$('[data-pjtoggle]').forEach(b=>b.addEventListener('click',()=>toggleProjExpand(b.dataset.pjtoggle)));
+  $$('[data-pjtaskadd]').forEach(inp=>{
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter') addProjTask(inp.dataset.pjtaskadd, inp); });
+  });
+  $$('[data-pjtaskbtn]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const inp=document.querySelector(`[data-pjtaskadd="${btn.dataset.pjtaskbtn}"]`);
+      if(inp) addProjTask(btn.dataset.pjtaskbtn, inp);
+    });
+  });
+  $$('[data-pjtasktoggle]').forEach(b=>b.addEventListener('click',()=>{
+    updateById('todos',b.dataset.pjtasktoggle,t=>{ t.completed=!t.completed; t.completed_date=t.completed?todayStr():null; });
+    VIEWS.projects();
+  }));
+  $$('[data-pjtaskdel]').forEach(b=>b.addEventListener('click',()=>{
+    if(!confirm('Remove this task?')) return;
+    removeById('todos',b.dataset.pjtaskdel);
+    VIEWS.projects();
+  }));
+};
+
+const projExpanded={};
+function toggleProjExpand(id){ projExpanded[id]=!projExpanded[id]; VIEWS.projects(); }
+
+function projCard(p){
+  const todos=store.get('todos').filter(t=>t.project_id===p.id);
+  const open=todos.filter(t=>!t.completed);
+  const done=todos.filter(t=>t.completed);
+  const logs=(p.log||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const expanded=!!projExpanded[p.id];
+  const statusKey=p.status.replace(' ','-');
+
+  return `<div class="proj-card status-${statusKey}">
+    <div class="proj-card-head">
+      <div style="flex:1;min-width:0">
+        <div class="proj-title">${esc(p.title)}</div>
+        <div class="proj-meta">
+          <span class="pill">${cap(p.category||'other')}</span>
+          <span class="pill ${statusKey==='active'?'accent':statusKey==='on-hold'?'':''}${p.status==='completed'?'':''}">
+            ${cap(p.status)}
+          </span>
+          ${p.target_date?`<span class="muted small">🗓 ${prettyShort(p.target_date)}</span>`:''}
+          ${p.budget?`<span class="muted small">💰 ${esc(p.budget)}</span>`:''}
+          ${open.length?`<span class="muted small">${open.length} task${open.length>1?'s':''} open</span>`:''}
+          ${done.length?`<span class="muted small">${done.length} done</span>`:''}
+        </div>
+        ${p.description?`<div style="font-size:13.5px;color:var(--text-2);margin-bottom:6px">${esc(p.description)}</div>`:''}
+      </div>
+      <div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end;flex:0 0 auto">
+        <div style="display:flex;gap:8px">
+          <span data-pjlog="${p.id}" style="cursor:pointer;color:var(--text-2);font-size:12px" title="Add log entry">✦ note</span>
+          <span data-pjedit="${p.id}" style="cursor:pointer;color:var(--text-2);font-size:12px" title="Edit">✎ edit</span>
+          <span data-pjdel="${p.id}" style="cursor:pointer;color:var(--text-2);font-size:13px" title="Delete">✕</span>
+        </div>
+        <span data-pjtoggle="${p.id}" style="cursor:pointer;color:var(--text-2);font-size:12px;margin-top:4px">${expanded?'▲ collapse':'▼ expand'}</span>
+      </div>
+    </div>
+
+    ${expanded?`
+      ${logs.length?`<div class="proj-log">
+        <div class="muted small" style="text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Notes log</div>
+        ${logs.map(l=>`<div class="proj-log-entry">
+          <span class="proj-log-date">${prettyShort(l.date)}</span>
+          <span>${esc(l.note)}</span>
+        </div>`).join('')}
+      </div>`:''}
+
+      <div class="proj-tasks">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div class="muted small" style="text-transform:uppercase;letter-spacing:.5px">Tasks${todos.length?` (${open.length} open · ${done.length} done)`:''}</div>
+        </div>
+        ${todos.length?todos.slice().sort((a,b)=>a.completed-b.completed).map(t=>`<div class="proj-task-row">
+          <span class="proj-task-cbx ${t.completed?'checked':''}" data-pjtasktoggle="${t.id}" title="${t.completed?'Mark incomplete':'Mark complete'}" style="cursor:pointer;width:16px;height:16px;border-radius:4px;border:1.5px solid ${t.completed?'var(--accent)':'var(--line)'};background:${t.completed?'var(--accent)':'transparent'};display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex:0 0 16px">${t.completed?'✓':''}</span>
+          <span class="${t.completed?'proj-task-done':''}" style="flex:1">${esc(t.title)}</span>
+          ${t.due_date?`<span class="muted small">· ${prettyShort(t.due_date)}</span>`:''}
+          <span data-pjtaskdel="${t.id}" style="cursor:pointer;color:var(--text-2);font-size:12px;padding-left:8px" title="Remove task">✕</span>
+        </div>`).join(''):''}
+        <div style="display:flex;gap:6px;margin-top:8px;align-items:center">
+          <input type="text" class="proj-task-input" data-pjtaskadd="${p.id}" placeholder="Add a task…" style="flex:1;font-size:13px;padding:6px 8px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);color:var(--text)">
+          <input type="date" class="proj-task-due" data-pjtaskdue="${p.id}" style="font-size:12px;padding:6px 8px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);width:130px">
+          <button class="btn sm" data-pjtaskbtn="${p.id}">Add</button>
+        </div>
+      </div>
+    `:''}
+  </div>`;
+}
+
+function addProject(){
+  const title=$('#pjTitle').value.trim(); if(!title){ toast('Title required'); return; }
+  const p={
+    id:uid(), title,
+    category:$('#pjCat').value||'other',
+    status:$('#pjStatus').value||'active',
+    description:$('#pjDesc').value.trim()||null,
+    target_date:$('#pjDate').value||null,
+    budget:$('#pjBudget').value.trim()||null,
+    log:[],
+    created:todayStr()
+  };
+  const arr=store.get('projects'); arr.push(p); store.set('projects',arr);
+  projExpanded[p.id]=true;
+  toast('Project created'); VIEWS.projects();
+}
+
+function addProjTask(projectId, inputEl){
+  const title=inputEl.value.trim(); if(!title){ inputEl.focus(); return; }
+  const dueEl=document.querySelector(`[data-pjtaskdue="${projectId}"]`);
+  const t={
+    id:uid(), title,
+    project_id:projectId,
+    due_date:dueEl?dueEl.value||null:null,
+    priority:null, goal_id:null,
+    completed:false, completed_date:null,
+    created_date:todayStr()
+  };
+  const arr=store.get('todos'); arr.push(t); store.set('todos',arr);
+  projExpanded[projectId]=true;
+  inputEl.value=''; if(dueEl) dueEl.value='';
+  toast('Task added'); VIEWS.projects();
+}
+
+function openProjEdit(id){
+  const p=store.get('projects').find(x=>x.id===id); if(!p) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Edit project</h2>
+    <div class="field"><label class="fld">Title</label><input type="text" id="peName" value="${esc(p.title)}"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Category</label>
+        <select id="peCat">${PROJ_CATS.map(c=>`<option value="${c}" ${p.category===c?'selected':''}>${cap(c)}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label class="fld">Status</label>
+        <select id="peStatus">${PROJ_STATUSES.map(s=>`<option value="${s}" ${p.status===s?'selected':''}>${cap(s)}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="field"><label class="fld">Description</label><input type="text" id="peDesc" value="${esc(p.description||'')}"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Target date</label><input type="date" id="peDate" value="${p.target_date||''}"></div>
+      <div class="field"><label class="fld">Budget</label><input type="text" id="peBudget" value="${esc(p.budget||'')}"></div>
+    </div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="peSave">Save</button>
+      <button class="btn ghost" id="peCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('peCancel').addEventListener('click', closeModal);
+  document.getElementById('peSave').addEventListener('click',()=>{
+    const title=document.getElementById('peName').value.trim(); if(!title){ toast('Title required'); return; }
+    updateById('projects',id,x=>{
+      x.title=title;
+      x.category=document.getElementById('peCat').value;
+      x.status=document.getElementById('peStatus').value;
+      x.description=document.getElementById('peDesc').value.trim()||null;
+      x.target_date=document.getElementById('peDate').value||null;
+      x.budget=document.getElementById('peBudget').value.trim()||null;
+    });
+    closeModal(); toast('Project updated'); VIEWS.projects();
+  });
+}
+
+function openProjLog(id){
+  const p=store.get('projects').find(x=>x.id===id); if(!p) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Add note</h2>
+    <p class="muted small" style="margin-top:0">${esc(p.title)}</p>
+    <div class="field"><label class="fld">Date</label><input type="date" id="plDate" value="${todayStr()}"></div>
+    <div class="field"><label class="fld">What happened / what did you figure out?</label>
+      <textarea id="plNote" style="min-height:100px" placeholder="Got quotes from three contractors. Going with…"></textarea>
+    </div>
+    <div class="btn-row" style="margin-top:12px">
+      <button class="btn" id="plSave">Save note</button>
+      <button class="btn ghost" id="plCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('plNote').focus();
+  document.getElementById('plCancel').addEventListener('click', closeModal);
+  document.getElementById('plSave').addEventListener('click',()=>{
+    const note=document.getElementById('plNote').value.trim(); if(!note){ toast('Note cannot be empty'); return; }
+    const date=document.getElementById('plDate').value||todayStr();
+    updateById('projects',id,x=>{ if(!x.log) x.log=[]; x.log.push({id:uid(),date,note}); });
+    projExpanded[id]=true;
+    closeModal(); toast('Note saved'); VIEWS.projects();
+  });
+}
+
+/* =========================================================================
+   NOTES (Keep-style)
+   ========================================================================= */
+const NOTE_COLORS=[
+  {key:'default',bg:'var(--surface)',text:'var(--text)'},
+  {key:'red',    bg:'#5c2323',text:'#f5d5d5'},
+  {key:'orange', bg:'#5c3a1e',text:'#f5dfc0'},
+  {key:'yellow', bg:'#4a3e00',text:'#f5e98a'},
+  {key:'green',  bg:'#1e3d2a',text:'#c0f0d0'},
+  {key:'teal',   bg:'#1a3a3a',text:'#b0e8e8'},
+  {key:'blue',   bg:'#1e2d4a',text:'#b0ccf5'},
+  {key:'purple', bg:'#32204a',text:'#d8b0f5'},
+  {key:'pink',   bg:'#4a1f35',text:'#f5b0d0'},
+];
+function noteColor(key){ return NOTE_COLORS.find(c=>c.key===key)||NOTE_COLORS[0]; }
+
+let notesSearch='';
+let notesTagFilter='all';
+
+VIEWS.notes=function(){
+  const notes=store.get('notes');
+  // collect all tags
+  const allTags=[...new Set(notes.flatMap(n=>n.tags||[]))].sort();
+  // filter
+  let list=notes.filter(n=>{
+    const matchTag=notesTagFilter==='all'||(n.tags||[]).includes(notesTagFilter);
+    const q=notesSearch.toLowerCase();
+    const matchSearch=!q||(n.title||'').toLowerCase().includes(q)||(n.body||'').toLowerCase().includes(q);
+    return matchTag&&matchSearch;
+  });
+  // manual order (drag-drop), pinned still floats to top within that order
+  const order=store.get('note_order')||[];
+  const omap={}; order.forEach((id,i)=>omap[id]=i);
+  list=list.slice().sort((a,b)=>{
+    if(a.pinned&&!b.pinned) return -1;
+    if(!a.pinned&&b.pinned) return 1;
+    const oa=omap[a.id]??99999, ob=omap[b.id]??99999;
+    if(oa!==ob) return oa-ob;
+    return (b.updated||b.created||'').localeCompare(a.updated||a.created||'');
+  });
+
+  const tagBar=allTags.length?`<div class="notes-tag-bar">
+    <span class="note-tag-chip ${notesTagFilter==='all'?'on':''}" data-ntag="all">All</span>
+    ${allTags.map(t=>`<span class="note-tag-chip ${notesTagFilter===t?'on':''}" data-ntag="${esc(t)}">${esc(t)}</span>`).join('')}
+  </div>`:'';
+
+  render('notes',`
+    <h1 class="page">Notes</h1>
+    <p class="page-sub">Quick capture, color-coded, always searchable.</p>
+    <input class="notes-search" id="notesSearch" placeholder="Search notes…" value="${esc(notesSearch)}">
+    ${tagBar}
+    <div style="margin-bottom:14px">
+      <button class="btn" id="newNoteBtn">+ New note</button>
+    </div>
+    <div class="notes-grid" id="notesGrid">
+      ${list.length?list.map(noteCard).join(''):'<div class="empty" style="grid-column:1/-1">No notes yet. Hit + New note to start.</div>'}
+    </div>
+  `);
+
+  $('#newNoteBtn').addEventListener('click',()=>openNoteModal(null));
+  $('#notesSearch').addEventListener('input',e=>{ notesSearch=e.target.value; VIEWS.notes(); });
+  $$('[data-ntag]').forEach(c=>c.addEventListener('click',()=>{ notesTagFilter=c.dataset.ntag; VIEWS.notes(); }));
+  $$('[data-nedit]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); openNoteModal(b.dataset.nedit); }));
+  $$('[data-npin]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); updateById('notes',b.dataset.npin,n=>n.pinned=!n.pinned); VIEWS.notes(); }));
+  $$('[data-ndel]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); if(confirm('Delete this note?')){ removeById('notes',b.dataset.ndel); VIEWS.notes(); } }));
+  $$('.note-card[data-nid]').forEach(c=>c.addEventListener('click',e=>{ if(!c.classList.contains('dragging')) openNoteModal(c.dataset.nid); }));
+  initNoteDrag();
+};
+
+function noteCard(n){
+  const col=noteColor(n.color);
+  const isLight=['yellow'].includes(n.color);
+  const dateStr=n.updated?prettyShort(n.updated.slice(0,10)):prettyShort(n.created);
+  const tags=(n.tags||[]).map(t=>`<span style="padding:1px 7px;border-radius:99px;font-size:10px;background:rgba(255,255,255,.12);margin-right:3px">${esc(t)}</span>`).join('');
+  return `<div class="note-card ${n.pinned?'pinned':''}" data-nid="${n.id}" draggable="true"
+    style="background:${col.bg};color:${col.text};--nc-bg:${col.bg};cursor:grab">
+    ${n.title?`<div class="note-card-title" style="color:${col.text}">${esc(n.title)}</div>`:''}
+    <div class="note-card-body" style="color:${col.text};opacity:.9">${esc(n.body||'')}</div>
+    ${tags?`<div style="margin-top:8px">${tags}</div>`:''}
+    <div class="note-card-footer ${isLight?'light':''}">
+      <span>${dateStr}</span>
+      <div class="note-actions">
+        <span data-npin="${n.id}" title="${n.pinned?'Unpin':'Pin'}" style="cursor:pointer">${n.pinned?'📌':'📍'}</span>
+        <span data-nedit="${n.id}" title="Edit" style="cursor:pointer">✎</span>
+        <span data-ndel="${n.id}" title="Delete" style="cursor:pointer">✕</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function initNoteDrag(){
+  let dragId=null, moved=false;
+  const grid=$('#notesGrid'); if(!grid) return;
+  grid.addEventListener('dragstart',e=>{
+    const card=e.target.closest('.note-card[draggable]'); if(!card) return;
+    dragId=card.dataset.nid; moved=false;
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed='move';
+  });
+  grid.addEventListener('dragend',e=>{
+    const card=e.target.closest('.note-card');
+    $$('.note-card',grid).forEach(el=>el.classList.remove('dragging','drag-over'));
+    dragId=null;
+  });
+  grid.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const card=e.target.closest('.note-card[draggable]'); if(!card||card.dataset.nid===dragId) return;
+    $$('.note-card',grid).forEach(el=>el.classList.remove('drag-over'));
+    card.classList.add('drag-over');
+  });
+  grid.addEventListener('dragleave',e=>{ const card=e.target.closest('.note-card'); if(card) card.classList.remove('drag-over'); });
+  grid.addEventListener('drop',e=>{
+    e.preventDefault();
+    const target=e.target.closest('.note-card[draggable]');
+    if(!target||!dragId||target.dataset.nid===dragId) return;
+    moved=true;
+    const cards=$$('.note-card[draggable]',grid);
+    const ids=cards.map(el=>el.dataset.nid);
+    const fullOrder=store.get('note_order')||[];
+    const allIds=[...new Set([...fullOrder,...ids])];
+    const fi=allIds.indexOf(dragId), ti=allIds.indexOf(target.dataset.nid);
+    if(fi<0||ti<0) return;
+    allIds.splice(fi,1);
+    allIds.splice(allIds.indexOf(target.dataset.nid),0,dragId);
+    store.set('note_order',allIds);
+    const fiLocal=ids.indexOf(dragId), tiLocal=ids.indexOf(target.dataset.nid);
+    if(fiLocal<tiLocal) target.after(grid.querySelector(`[data-nid="${dragId}"]`));
+    else target.before(grid.querySelector(`[data-nid="${dragId}"]`));
+    $$('.note-card',grid).forEach(el=>el.classList.remove('drag-over','dragging'));
+  });
+}
+
+function openNoteModal(id){
+  const n=id?store.get('notes').find(x=>x.id===id):null;
+  const col=noteColor(n?n.color:null);
+  const colorDots=NOTE_COLORS.map(c=>`<span class="note-color-dot" data-ncolor="${c.key}" style="background:${c.bg==='var(--surface)'?'var(--surface-2)':c.bg}" title="${c.key}"></span>`).join('');
+  const existingTags=n?(n.tags||[]):[];
+
+  openModal(`
+    <div id="noteModalWrap" style="background:${col.bg};border-radius:8px;padding:4px">
+      <div class="field"><input type="text" id="nmTitle" value="${esc(n?n.title||'':'')}" placeholder="Title" style="font-family:var(--serif);font-size:17px;font-weight:500;background:transparent;border:none;border-bottom:1px solid var(--line);border-radius:0;padding:6px 2px"></div>
+      <div class="field"><textarea id="nmBody" style="min-height:160px;background:transparent;border:none;border-radius:0;padding:4px 2px;font-size:14px;line-height:1.65;resize:vertical" placeholder="Write anything…">${esc(n?n.body||'':'')}</textarea></div>
+      <div class="field">
+        <label class="fld">Color</label>
+        <div class="note-color-bar" id="nmColorBar">${colorDots}</div>
+        <input type="hidden" id="nmColor" value="${n?n.color||'default':'default'}">
+      </div>
+      <div class="field">
+        <label class="fld">Tags <span class="muted">(press Enter to add)</span></label>
+        <input type="text" id="nmTagInput" placeholder="work, idea, recipe…">
+        <div class="note-modal-tags" id="nmTags">
+          ${existingTags.map(t=>`<span class="note-tag-pill">${esc(t)}<span class="rm" data-rmtag="${esc(t)}">✕</span></span>`).join('')}
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:14px">
+        <button class="btn" id="nmSave">${n?'Save':'Add note'}</button>
+        ${n?`<button class="btn ghost sm" id="nmPin">${n.pinned?'Unpin':'Pin'}</button>`:''}
+        <button class="btn ghost" id="nmCancel">Cancel</button>
+      </div>
+    </div>
+  `);
+
+  // active color dot
+  function refreshDots(){
+    const cur=document.getElementById('nmColor').value;
+    document.querySelectorAll('[data-ncolor]').forEach(d=>d.classList.toggle('sel',d.dataset.ncolor===cur));
+    const c=noteColor(cur);
+    const wrap=document.getElementById('noteModalWrap');
+    if(wrap) wrap.style.background=c.bg==='var(--surface)'?'var(--surface)':c.bg;
+  }
+  refreshDots();
+
+  document.querySelectorAll('[data-ncolor]').forEach(d=>d.addEventListener('click',()=>{
+    document.getElementById('nmColor').value=d.dataset.ncolor; refreshDots();
+  }));
+
+  // tag management
+  const tagSet=new Set(existingTags);
+  function renderTags(){
+    document.getElementById('nmTags').innerHTML=[...tagSet].map(t=>`<span class="note-tag-pill">${esc(t)}<span class="rm" data-rmtag="${esc(t)}">✕</span></span>`).join('');
+    document.querySelectorAll('[data-rmtag]').forEach(b=>b.addEventListener('click',()=>{ tagSet.delete(b.dataset.rmtag); renderTags(); }));
+  }
+  renderTags();
+  document.getElementById('nmTagInput').addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===','){
+      e.preventDefault();
+      const val=e.target.value.trim().replace(/,$/,'').toLowerCase();
+      if(val){ tagSet.add(val); e.target.value=''; renderTags(); }
+    }
+  });
+
+  document.getElementById('nmCancel').addEventListener('click',closeModal);
+  const pinBtn=document.getElementById('nmPin');
+  if(pinBtn) pinBtn.addEventListener('click',()=>{ updateById('notes',id,x=>x.pinned=!x.pinned); closeModal(); VIEWS.notes(); });
+
+  document.getElementById('nmSave').addEventListener('click',()=>{
+    const title=document.getElementById('nmTitle').value.trim();
+    const body=document.getElementById('nmBody').value.trim();
+    if(!title&&!body){ toast('Note is empty'); return; }
+    const color=document.getElementById('nmColor').value||'default';
+    const tags=[...tagSet];
+    if(n){
+      updateById('notes',id,x=>{ x.title=title; x.body=body; x.color=color; x.tags=tags; x.updated=new Date().toISOString(); });
+    } else {
+      const newNote={id:uid(),title,body,color,tags,pinned:false,created:todayStr(),updated:new Date().toISOString()};
+      const arr=store.get('notes'); arr.push(newNote); store.set('notes',arr);
+    }
+    closeModal(); VIEWS.notes();
+  });
+}
+
+/* =========================================================================
+   SHOPPING LIST
+   ========================================================================= */
+let shopTab='needed'; // 'needed' | 'bought'
+
+VIEWS.shopping=function(){
+  const items=store.get('shopping_items');
+  const needed=items.filter(i=>!i.bought).sort((a,b)=>{
+    const da=shopDaysUntilDue(a), db=shopDaysUntilDue(b);
+    if(da!==null&&db!==null) return da-db;
+    if(da!==null) return -1;
+    if(db!==null) return 1;
+    return a.name.localeCompare(b.name);
+  });
+  const bought=items.filter(i=>i.bought).sort((a,b)=>(b.last_purchased||'').localeCompare(a.last_purchased||''));
+  const overdueCount=needed.filter(i=>{ const d=shopDaysUntilDue(i); return d!==null&&d<=0; }).length;
+
+  render('shopping',`
+    <h1 class="page">Shopping</h1>
+    <p class="page-sub">Check off when bought — it remembers when and reminds you when to restock.</p>
+
+    ${overdueCount>0?`<div class="card" style="border-left:3px solid var(--danger);padding:10px 16px">
+      <strong style="color:var(--danger)">⚠ ${overdueCount} item${overdueCount>1?'s':''} overdue for restocking</strong>
+    </div>`:''}
+
+    <div class="card">
+      <div class="inline-fields" style="align-items:flex-end">
+        <div class="field" style="flex:3"><label class="fld">Add item — press Enter</label><input type="text" id="shopName" placeholder="e.g. Oat milk"></div>
+        <div class="field"><label class="fld">Notes <span class="muted">(optional)</span></label><input type="text" id="shopQty" placeholder="2 cartons, organic…"></div>
+        <div class="field"><label class="fld">Restock every</label>
+          <select id="shopInterval">
+            <option value="">— no reminder —</option>
+            <option value="7">Weekly</option>
+            <option value="14">Every 2 weeks</option>
+            <option value="30">Monthly</option>
+            <option value="60">Every 2 months</option>
+            <option value="90">Every 3 months</option>
+            <option value="180">Every 6 months</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs" style="margin-bottom:0">
+      <div class="tab ${shopTab==='needed'?'active':''}" data-shoptab="needed">Need to buy (${needed.length})</div>
+      <div class="tab ${shopTab==='bought'?'active':''}" data-shoptab="bought">Bought (${bought.length})</div>
+      ${bought.length?'<button class="btn ghost sm" id="shopClearBought" style="margin-left:auto">Clear bought</button>':''}
+    </div>
+
+    <div class="card" style="border-top-left-radius:0;border-top-right-radius:0;margin-top:0">
+      <div id="shopList">
+        ${shopTab==='needed'
+          ? (needed.length ? needed.map(shopItemRow).join('') : '<div class="empty">Nothing to buy. ✓</div>')
+          : (bought.length ? bought.map(shopItemRow).join('') : '<div class="empty">Nothing bought yet.</div>')
+        }
+      </div>
+    </div>
+  `);
+
+  $('#shopName').addEventListener('keydown',e=>{ if(e.key==='Enter') addShopItem(); });
+  $$('[data-shoptab]').forEach(t=>t.addEventListener('click',()=>{ shopTab=t.dataset.shoptab; VIEWS.shopping(); }));
+  const cb=$('#shopClearBought'); if(cb) cb.addEventListener('click',()=>{
+    if(!confirm('Remove all bought items from the list?')) return;
+    store.set('shopping_items', store.get('shopping_items').filter(i=>!i.bought));
+    toast('Cleared'); VIEWS.shopping();
+  });
+  $$('[data-shopcbx]').forEach(b=>b.addEventListener('click',()=>markShopBought(b.dataset.shopcbx)));
+  $$('[data-shopuncbx]').forEach(b=>b.addEventListener('click',()=>markShopNeeded(b.dataset.shopuncbx)));
+  $$('[data-shopedit]').forEach(b=>b.addEventListener('click',()=>openShopEdit(b.dataset.shopedit)));
+  $$('[data-shopdel]').forEach(b=>b.addEventListener('click',()=>{ removeById('shopping_items',b.dataset.shopdel); VIEWS.shopping(); }));
+};
+
+function shopDaysUntilDue(item){
+  if(!item.interval_days||!item.last_purchased) return null;
+  const d=fromStr(item.last_purchased); d.setDate(d.getDate()+item.interval_days);
+  return diffDays(todayStr(), toStr(d));
+}
+
+function shopStatusLabel(item){
+  if(item.bought) return item.last_purchased?`<span class="muted">bought ${prettyShort(item.last_purchased)}</span>`:'';
+  const days=shopDaysUntilDue(item);
+  if(days===null) return item.last_purchased?`<span class="muted">last bought ${prettyShort(item.last_purchased)}</span>`:'';
+  if(days<0)  return `<span class="shop-due-soon">overdue by ${Math.abs(days)}d · last bought ${prettyShort(item.last_purchased)}</span>`;
+  if(days===0) return `<span class="shop-due-soon">due today · last bought ${prettyShort(item.last_purchased)}</span>`;
+  if(days<=7) return `<span class="shop-due-soon">due in ${days}d · last bought ${prettyShort(item.last_purchased)}</span>`;
+  return `<span class="shop-due-ok">next in ${days}d · last bought ${prettyShort(item.last_purchased)}</span>`;
+}
+
+function shopItemRow(item){
+  return `<div class="shop-item ${item.bought?'in-cart':''}">
+    <div class="shop-cbx ${item.bought?'checked':''}" data-${item.bought?'shopuncbx':'shopcbx'}="${item.id}">${item.bought?'✓':''}</div>
+    <div class="shop-item-body">
+      <div class="shop-item-name">${esc(item.name)}</div>
+      <div class="shop-item-meta">
+        ${item.quantity?`<span>${esc(item.quantity)}</span>`:''}
+        ${shopStatusLabel(item)}
+      </div>
+    </div>
+    <span data-shopedit="${item.id}" style="cursor:pointer;color:var(--text-2);font-size:13px;padding:0 6px" title="Edit">✎</span>
+    <span data-shopdel="${item.id}" style="cursor:pointer;color:var(--text-2);font-size:13px" title="Remove">✕</span>
+  </div>`;
+}
+
+function addShopItem(){
+  const name=$('#shopName').value.trim(); if(!name){ toast('Name required'); return; }
+  const item={
+    id:uid(), name,
+    quantity:$('#shopQty').value.trim()||null,
+    interval_days:$('#shopInterval').value?+$('#shopInterval').value:null,
+    last_purchased:null,
+    bought:false,
+    added:todayStr()
+  };
+  const arr=store.get('shopping_items'); arr.push(item); store.set('shopping_items',arr);
+  shopTab='needed'; VIEWS.shopping();
+}
+
+function markShopBought(id){
+  updateById('shopping_items',id,x=>{ x.bought=true; x.last_purchased=todayStr(); });
+  VIEWS.shopping();
+}
+
+function markShopNeeded(id){
+  updateById('shopping_items',id,x=>{ x.bought=false; });
+  VIEWS.shopping();
+}
+
+function openShopEdit(id){
+  const item=store.get('shopping_items').find(x=>x.id===id); if(!item) return;
+  openModal(`
+    <h2 style="font-family:var(--serif);font-weight:500">Edit item</h2>
+    <div class="field"><label class="fld">Name</label><input type="text" id="seeName" value="${esc(item.name)}"></div>
+    <div class="field"><label class="fld">Notes</label><input type="text" id="seeQty" value="${esc(item.quantity||'')}" placeholder="quantity, brand, details…"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="fld">Restock every</label>
+        <select id="seeInterval">
+          <option value="" ${!item.interval_days?'selected':''}>— no reminder —</option>
+          <option value="7" ${item.interval_days===7?'selected':''}>Weekly</option>
+          <option value="14" ${item.interval_days===14?'selected':''}>Every 2 weeks</option>
+          <option value="30" ${item.interval_days===30?'selected':''}>Monthly</option>
+          <option value="60" ${item.interval_days===60?'selected':''}>Every 2 months</option>
+          <option value="90" ${item.interval_days===90?'selected':''}>Every 3 months</option>
+          <option value="180" ${item.interval_days===180?'selected':''}>Every 6 months</option>
+        </select>
+      </div>
+      <div class="field"><label class="fld">Last purchased</label>
+        <input type="date" id="seeLastBought" value="${item.last_purchased||''}">
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:14px">
+      <button class="btn" id="seeSave">Save</button>
+      <button class="btn ghost" id="seeCancel">Cancel</button>
+    </div>
+  `);
+  document.getElementById('seeCancel').addEventListener('click', closeModal);
+  document.getElementById('seeSave').addEventListener('click',()=>{
+    const name=document.getElementById('seeName').value.trim(); if(!name){ toast('Name required'); return; }
+    updateById('shopping_items',id,x=>{
+      x.name=name;
+      x.quantity=document.getElementById('seeQty').value.trim()||null;
+      x.interval_days=document.getElementById('seeInterval').value?+document.getElementById('seeInterval').value:null;
+      x.last_purchased=document.getElementById('seeLastBought').value||null;
+    });
+    closeModal(); toast('Saved'); VIEWS.shopping();
+  });
 }
 
 /* =========================================================================
